@@ -7,21 +7,17 @@
 
 typedef unsigned int uint;
 
-class Block {
+class Ball {
 private:
 	Vector2D pos;
 	uint w = 0;
 	uint h = 0;
-	uint color = 0;
-	uint row = 0;
-	uint col = 0;
+	Vector2D speed;
 	Texture* texture = nullptr;
 
 public:
-	Block();
-	Block(uint w, uint h, uint color, uint row, uint col, Vector2D pos, Texture* t);
-	~Block() {}
-	uint getColor() { return color; }
-	void setColor(uint c);
+	Ball();
+	Ball(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t);
+	~Ball() {}
 	void render() const;
 };

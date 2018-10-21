@@ -4,6 +4,10 @@
 #include "SDL_image.h" // Windows
 #include "checkML.h"
 #include "Texture.h";
+#include "Ball.h"
+#include "BlocksMap.h"
+#include "Wall.h"
+#include "Paddle.h"
 
 using namespace std;
 
@@ -16,9 +20,10 @@ class Game {
 private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer * renderer = nullptr;
-	// uint winWidth, winHeight; // También podrían estar aquí
-	//Dog* dog = nullptr;
-	//Helicopter* helicopter = nullptr;
+	Ball* ball = nullptr;
+	BlocksMap* blocksmap = nullptr;
+	Wall* wall = nullptr;
+	Paddle* paddle = nullptr;
 	bool exit = false;
 	Texture* textures[NUM_TEXTURES];
 

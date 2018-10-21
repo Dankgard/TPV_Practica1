@@ -8,7 +8,7 @@ typedef unsigned int uint;
 
 class BlocksMap {
 private:
-	Block* blocks;
+	Block* blocks = nullptr;
 	uint mapW = 0;
 	uint mapH = 0;
 	uint cellW = 0;
@@ -16,6 +16,9 @@ private:
 	
 
 public:
-	BlocksMap(uint mapW, uint mapH, uint cellW, uint cellH);
+	BlocksMap();
 	~BlocksMap() { delete[] blocks; }
+	void loadMap(string filename);
+	void render() const;
+	uint blockNumber() const;
 };

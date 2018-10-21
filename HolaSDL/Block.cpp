@@ -18,30 +18,35 @@ void Block::render() const
 	uint r, c;
 	switch (color)
 	{
-	case 0:
-		r = 0;
-		c = 0;
-		break;
 	case 1:
 		r = 0;
-		c = 1;
+		c = 0;
 		break;
 	case 2:
 		r = 0;
-		c = 2;
+		c = 1;
 		break;
 	case 3:
-		r = 1;
-		c = 0;
+		r = 0;
+		c = 2;
 		break;
 	case 4:
 		r = 1;
-		c = 1;
+		c = 0;
 		break;
 	case 5:
+		r = 1;
+		c = 1;
+		break;
+	case 6:
 		r = 1;
 		c = 2;
 		break;
 	}
 	texture->renderFrame(destRect, r, c, 0, SDL_FLIP_NONE);
+}
+
+void Block::setColor(uint c)
+{
+	color = c;
 }
