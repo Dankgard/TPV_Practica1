@@ -9,7 +9,7 @@ typedef unsigned int uint;
 
 class Wall {
 private:
-	Vector2D pos = Vector2D();
+	Vector2D pos;
 	uint w = 0;
 	uint h = 0;
 	Texture* texture = nullptr;
