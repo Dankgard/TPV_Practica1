@@ -39,7 +39,7 @@ void Texture::renderFrame(const SDL_Rect& destRect, int row, int col, int angle,
 	srcRect.x = srcRect.y = 0;
 	srcRect.w = textW / 3;
 	srcRect.h = textH / 2;
-	srcRect.x = fw * col;
-	srcRect.y = fh * row;
+	srcRect.x = (textW / 3) * col;
+	srcRect.y = (textH / 2) * row;
 	SDL_RenderCopyEx(renderer, texture, &srcRect, &destRect, angle, 0, flip);
 }

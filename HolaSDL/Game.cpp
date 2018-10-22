@@ -33,10 +33,10 @@ Game::Game() {
 	leftwall = new Wall(20, WIN_HEIGHT, leftwallpos, textures[3]);
 	Vector2D topwallpos(0, 0);
 	topwall = new Wall(WIN_WIDTH, 20, topwallpos, textures[4]);
-	blocksmap = new BlocksMap(0,0,30,30);
-	blocksmap->loadMap("..//maps//level01.ark", textures[1]);
-	//Vector2D blockpos(100, 100);
-	//block = new Block(50, 50, 1, 1, 1, blockpos, textures[1]);
+	//blocksmap = new BlocksMap(0,0,30,30);
+	//blocksmap->loadMap("..//maps//level01.ark", textures[1]);
+	Vector2D blockpos(100, 100);
+	block = new Block(50, 50, 5, 1, 1, blockpos, textures[1]);
 	
 }
 Game::~Game() {
@@ -67,8 +67,8 @@ void Game::render() const {
 	rightwall->render();
 	leftwall->render();
 	topwall->render();
-	blocksmap->render();
-	//block->render();
+	//blocksmap->render();
+	block->render();
 	SDL_RenderPresent(renderer);
 }
 
