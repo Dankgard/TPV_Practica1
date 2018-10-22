@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include "checkML.h"
+#include "Texture.h"
 
 using namespace std;
 
@@ -12,14 +13,15 @@ Game::Game() {
 	renderer = SDL_CreateRenderer(window, -1,SDL_RENDERER_ACCELERATED);
 	if(window == nullptr || renderer == nullptr) throw "Error loading the SDL window or renderer";
 
+	string nombre[NUM_TEXTURES] = { "ball.png","bricks.png","paddle.png","side.png","topside.png" };
 	// We now create the textures
 	for(uint i = 0; i < NUM_TEXTURES; i++) {
-		
+		textures[i]->load("..//images//" + nombre[i],1,1);
 	}
 
 	// We finally create the game objects
-	
-	//dog = new Dog(...);
+	Vector2D ballpos = new Vector2D(400, 500);
+	ball = new Ball(ballpos);
 	//helicopter = new Helicopter(...);
 	
 }

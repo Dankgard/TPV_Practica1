@@ -23,7 +23,9 @@ private:
 	SDL_Renderer * renderer = nullptr;
 	Ball* ball = nullptr;
 	BlocksMap* blocksmap = nullptr;
-	Wall* wall = nullptr;
+	Wall* rightwall = nullptr;
+	Wall* leftwall = nullptr;
+	Wall* topwall = nullptr;
 	Paddle* paddle = nullptr;
 	bool exit = false;
 	Texture* textures[NUM_TEXTURES];
