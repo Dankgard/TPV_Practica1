@@ -14,7 +14,8 @@ using namespace std;
 typedef unsigned int uint;
 const uint WIN_WIDTH = 800;
 const uint WIN_HEIGHT = 600;
-const uint NUM_TEXTURES = 3;
+const uint NUM_TEXTURES = 5;
+const uint FRAME_RATE = 0;
 
 class Game {
 private:

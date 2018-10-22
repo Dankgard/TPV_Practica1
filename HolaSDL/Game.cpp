@@ -5,6 +5,7 @@
 using namespace std;
 
 Game::Game() {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Leaks
 	// We first initialize SDL
 	SDL_Init (SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("...", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,WIN_WIDTH, WIN_HEIGHT,SDL_WINDOW_SHOWN);
