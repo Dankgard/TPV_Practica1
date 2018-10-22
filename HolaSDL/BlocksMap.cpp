@@ -8,7 +8,7 @@ BlocksMap::BlocksMap() : blocks(), mapH(), mapW(), cellH(), cellW() {}
 BlocksMap::~BlocksMap() {
 	uint colNumber = sizeof blocks[0] / sizeof blocks[0, 0];
 
-	for (int a = 0; a < colNumber; a++) {
+	for (uint a = 0; a < colNumber; a++) {
 		delete[] blocks[a];
 	}
 	delete[] blocks;
@@ -27,13 +27,13 @@ void BlocksMap::loadMap(string filename)
 		input >> rowNumber;
 		input >> colNumber;
 		blocks = new Block*[colNumber];
-		for (int x = 0; x < colNumber; x++) {
+		for (uint x = 0; x < colNumber; x++) {
 			blocks[x] = new Block[rowNumber];
 		}
 
-		for (int i = 0;i < rowNumber;i++)
+		for (uint i = 0;i < rowNumber;i++)
 		{
-			for (int j = 0;j < colNumber;j++)
+			for (uint j = 0;j < colNumber;j++)
 			{
 				uint c;
 				input >> c;
@@ -48,9 +48,9 @@ void BlocksMap::render() const
 {
 	uint rowNumber = sizeof blocks / sizeof blocks[0];
 	uint colNumber = sizeof blocks[0] / sizeof blocks[0,0];
-	for (int i = 0;i < rowNumber;i++)
+	for (uint i = 0;i < rowNumber;i++)
 	{
-		for (int j = 0; j < colNumber;j++)
+		for (uint j = 0; j < colNumber;j++)
 		{
 			blocks[j][i].render();
 		}
@@ -62,11 +62,11 @@ uint BlocksMap::blockNumber() const
 	uint blockNumber = 0;
 	uint rowNumber = sizeof blocks / sizeof blocks[0];
 	uint colNumber = sizeof blocks[0] / sizeof blocks[0, 0];
-	for (int i = 0;i < rowNumber;i++)
+	for (uint i = 0;i < rowNumber;i++)
 	{
-		for (int j = 0; j < colNumber;j++)
+		for (uint j = 0; j < colNumber;j++)
 		{
-			if (blocks[j][i].getColor != 0)
+			if (blocks[j][i].getColor() != 0)
 				blockNumber++;
 		}
 	}

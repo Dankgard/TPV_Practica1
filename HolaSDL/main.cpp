@@ -3,6 +3,7 @@
 #include "SDL_image.h"
 #include "checkML.h"
 #include <iostream>
+#include "Game.h"
 
 using namespace std;
 
@@ -32,6 +33,7 @@ void firstTest() {
 }
 
 int main(int argc, char* argv[]){
-	firstTest();
+	Game game;
+	game.run();
 	return 0;
 }
