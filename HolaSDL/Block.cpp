@@ -45,8 +45,3 @@ void Block::render() const
 	}
 	texture->renderFrame(destRect, r, c, 0, SDL_FLIP_NONE);
 }
-
-void Block::setColor(uint c)
-{
-	color = c;
-}

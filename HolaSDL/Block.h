@@ -22,6 +22,5 @@ public:
 	Block(uint w, uint h, uint color, uint row, uint col, Vector2D pos, Texture* t);
 	~Block() {}
 	uint getColor() { return color; }
-	void setColor(uint c);
 	void render() const;
 };

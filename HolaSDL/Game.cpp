@@ -16,6 +16,7 @@ Game::Game() {
 	string nombre[NUM_TEXTURES] = { "ball.png","bricks.png","paddle.png","side.png","topside.png" };
 	// We now create the textures
 	for(uint i = 0; i < NUM_TEXTURES; i++) {
+		textures[i] = new Texture(renderer);
 		textures[i]->load("..//images//" + nombre[i],1,1);
 	}
 
@@ -25,13 +26,17 @@ Game::Game() {
 	ball = new Ball(ballpos, 50, 50, ballspeed, textures[0]);
 	Vector2D paddlepos(400, 500);
 	Vector2D paddlespeed(0, 0);
-	paddle = new Paddle(paddlepos, 50, 50, paddlespeed, textures[2]);
-	Vector2D rightwallpos(700, 0);
+	paddle = new Paddle(paddlepos, 100, 50, paddlespeed, textures[2]);
+	Vector2D rightwallpos(775, 0);
 	rightwall = new Wall(20, WIN_HEIGHT, rightwallpos, textures[3]);
-	Vector2D leftwallpos(0, 0);
+	Vector2D leftwallpos(5, 0);
 	leftwall = new Wall(20, WIN_HEIGHT, leftwallpos, textures[3]);
 	Vector2D topwallpos(0, 0);
 	topwall = new Wall(WIN_WIDTH, 20, topwallpos, textures[4]);
+	blocksmap = new BlocksMap(0,0,30,30);
+	blocksmap->loadMap("..//maps//level01.ark", textures[1]);
+	//Vector2D blockpos(100, 100);
+	//block = new Block(50, 50, 1, 1, 1, blockpos, textures[1]);
 	
 }
 Game::~Game() {
@@ -62,6 +67,8 @@ void Game::render() const {
 	rightwall->render();
 	leftwall->render();
 	topwall->render();
+	blocksmap->render();
+	//block->render();
 	SDL_RenderPresent(renderer);
 }
 

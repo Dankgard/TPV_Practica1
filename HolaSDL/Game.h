@@ -27,6 +27,7 @@ private:
 	Wall* leftwall = nullptr;
 	Wall* topwall = nullptr;
 	Paddle* paddle = nullptr;
+	Block* block = nullptr;
 	bool exit = false;
 	Texture* textures[NUM_TEXTURES];
 
