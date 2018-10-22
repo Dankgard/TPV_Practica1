@@ -5,6 +5,14 @@
 #include <string>
 
 BlocksMap::BlocksMap() : blocks(), mapH(), mapW(), cellH(), cellW() {}
+BlocksMap::~BlocksMap() {
+	uint colNumber = sizeof blocks[0] / sizeof blocks[0, 0];
+
+	for (int a = 0; a < colNumber; a++) {
+		delete[] blocks[a];
+	}
+	delete[] blocks;
+}
 
 void BlocksMap::loadMap(string filename)
 {
@@ -18,7 +26,10 @@ void BlocksMap::loadMap(string filename)
 		uint colNumber;
 		input >> rowNumber;
 		input >> colNumber;
-		blocks = new Block[colNumber, rowNumber];
+		blocks = new Block*[colNumber];
+		for (int x = 0; x < colNumber; x++) {
+			blocks[x] = new Block[rowNumber];
+		}
 
 		for (int i = 0;i < rowNumber;i++)
 		{
@@ -26,7 +37,7 @@ void BlocksMap::loadMap(string filename)
 			{
 				uint c;
 				input >> c;
-				blocks[j, i].setColor(c);
+				blocks[j][i].setColor(c);
 			}
 		}
 	}
@@ -41,7 +52,7 @@ void BlocksMap::render() const
 	{
 		for (int j = 0; j < colNumber;j++)
 		{
-			blocks[j, i].render();
+			blocks[j][i].render();
 		}
 	}
 }
@@ -55,7 +66,7 @@ uint BlocksMap::blockNumber() const
 	{
 		for (int j = 0; j < colNumber;j++)
 		{
-			if (blocks[j, i].getColor != 0)
+			if (blocks[j][i].getColor != 0)
 				blockNumber++;
 		}
 	}
