@@ -43,5 +43,6 @@ void Block::render() const
 		c = 2;
 		break;
 	}
-	texture->renderFrame(destRect, r, c, 0, SDL_FLIP_NONE);
+	if(color!=0)
+		texture->renderFrame(destRect, r, c, 0, SDL_FLIP_NONE);
 }

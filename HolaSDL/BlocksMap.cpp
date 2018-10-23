@@ -30,20 +30,27 @@ void BlocksMap::loadMap(string filename, Texture* texture)
 		uint colNumber;
 		input >> rowNumber;
 		input >> colNumber;
+		mapW = colNumber;
+		mapH = rowNumber;
 		blocks = new Block**[colNumber];
 		for (uint x = 0; x < colNumber; x++) {
 			blocks[x] = new Block*[rowNumber];
 		}
-
+		//Para colocarlo en el medio de la imagen
+		uint x = 3;
+		uint y = 2;
 		for (uint i = 0;i < rowNumber;i++)
 		{
 			for (uint j = 0;j < colNumber;j++)
-			{
-				Vector2D pos(j*cellW,i*cellH);
+			{				
+				Vector2D pos(x*cellW,y*cellH);
 				uint color;
 				input >> color;
 				blocks[j][i] = new Block(cellW, cellH, color, i, j, pos, texture);
+				x++;
 			}
+			x = 3;
+			y++;
 		}
 	}
 	input.close();
@@ -51,8 +58,8 @@ void BlocksMap::loadMap(string filename, Texture* texture)
 
 void BlocksMap::render() const
 {
-	uint rowNumber = sizeof blocks / sizeof blocks[0];
-	uint colNumber = sizeof blocks[0] / sizeof blocks[0,0];
+	uint rowNumber = mapH; //sizeof blocks / sizeof blocks[0];
+	uint colNumber = mapW; //sizeof blocks[0] / sizeof blocks[0, 0];
 	for (uint i = 0;i < rowNumber;i++)
 	{
 		for (uint j = 0; j < colNumber;j++)
