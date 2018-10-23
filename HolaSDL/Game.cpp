@@ -34,17 +34,21 @@ Game::Game() {
 	Vector2D topwallpos(0, 0);
 	topwall = new Wall(WIN_WIDTH, 20, topwallpos, textures[4]);
 	blocksmap = new BlocksMap(0,0,50,30);
-	blocksmap->loadMap("..//maps//level01.ark", textures[1]);
-	//Vector2D blockpos(100, 100);
-	//block = new Block(50, 50, 5, 1, 1, blockpos, textures[1]);
+	blocksmap->loadMap("..//maps//level03.ark", textures[1]);
 	
 }
 Game::~Game() {
+	delete ball;
+	delete blocksmap;
+	delete rightwall;
+	delete leftwall;
+	delete topwall;
+	delete paddle;
 	for(uint i = 0; i < NUM_TEXTURES; i++)
 		delete textures[i];
-		SDL_DestroyRenderer(renderer);
-		SDL_DestroyWindow(window);
-		SDL_Quit();
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	SDL_Quit();
 }
 
 void Game::run() {
@@ -68,7 +72,6 @@ void Game::render() const {
 	leftwall->render();
 	topwall->render();
 	blocksmap->render();
-	//block->render();
 	SDL_RenderPresent(renderer);
 }
 

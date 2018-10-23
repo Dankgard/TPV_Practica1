@@ -10,9 +10,7 @@ BlocksMap::BlocksMap(uint mapW, uint mapH, uint cellW, uint cellH)
 	: blocks(), mapW(mapW), mapH(mapH), cellW(cellW), cellH(cellH) {}
 
 BlocksMap::~BlocksMap() {
-	uint colNumber = sizeof blocks[0] / sizeof blocks[0, 0];
-
-	for (uint a = 0; a < colNumber; a++) {
+	for (uint a = 0; a < mapW; a++) {
 		delete[] blocks[a];
 	}
 	delete[] blocks;
@@ -37,19 +35,21 @@ void BlocksMap::loadMap(string filename, Texture* texture)
 			blocks[x] = new Block*[rowNumber];
 		}
 		//Para colocarlo en el medio de la imagen
-		uint x = 3;
-		uint y = 2;
+		uint xold = (800 - (colNumber * cellW)) / 2;
+		uint x = xold;
+		uint y = 20;
+
 		for (uint i = 0;i < rowNumber;i++)
 		{
 			for (uint j = 0;j < colNumber;j++)
 			{				
-				Vector2D pos(x*cellW,y*cellH);
+				Vector2D pos(x + j*cellW, y + i*cellH);
 				uint color;
 				input >> color;
 				blocks[j][i] = new Block(cellW, cellH, color, i, j, pos, texture);
 				x++;
 			}
-			x = 3;
+			x = xold;
 			y++;
 		}
 	}
@@ -58,11 +58,11 @@ void BlocksMap::loadMap(string filename, Texture* texture)
 
 void BlocksMap::render() const
 {
-	uint rowNumber = mapH; //sizeof blocks / sizeof blocks[0];
-	uint colNumber = mapW; //sizeof blocks[0] / sizeof blocks[0, 0];
-	for (uint i = 0;i < rowNumber;i++)
+	//uint rowNumber = mapH; //sizeof blocks / sizeof blocks[0];
+	//uint colNumber = mapW; //sizeof blocks[0] / sizeof blocks[0, 0];
+	for (uint i = 0;i < mapH;i++)
 	{
-		for (uint j = 0; j < colNumber;j++)
+		for (uint j = 0; j < mapW;j++)
 		{
 			blocks[j][i]->render();
 		}
@@ -72,8 +72,8 @@ void BlocksMap::render() const
 uint BlocksMap::blockNumber() const
 {
 	uint blockNumber = 0;
-	uint rowNumber = sizeof blocks / sizeof blocks[0];
-	uint colNumber = sizeof blocks[0] / sizeof blocks[0, 0];
+	uint rowNumber = mapH;
+	uint colNumber = mapW;
 	for (uint i = 0;i < rowNumber;i++)
 	{
 		for (uint j = 0; j < colNumber;j++)
