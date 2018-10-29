@@ -34,7 +34,7 @@ Game::Game() {
 	Vector2D topwallpos(0, 0);
 	topwall = new Wall(WIN_WIDTH, 20, topwallpos, textures[4]);
 	blocksmap = new BlocksMap(0,0,50,30);
-	blocksmap->loadMap("..//maps//level03.ark", textures[1]);
+	blocksmap->loadMap("..//maps//level01.ark", textures[1]);
 	
 }
 Game::~Game() {
@@ -54,7 +54,7 @@ Game::~Game() {
 void Game::run() {
 	while(!exit) {
 		// Falta el control de tiempo
-		//handleEvents();
+		handleEvents();
 		//update();
 		render();
 	}
@@ -79,7 +79,7 @@ void Game::handleEvents() {
 	SDL_Event event;
 	while(SDL_PollEvent(&event) && !exit) {
 		if(event.type == SDL_QUIT) exit = true;
-		//dog->handleEvents(event);
+		paddle->handleEvents(event);
 	}
 }
 

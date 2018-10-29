@@ -16,3 +16,24 @@ void Paddle::render() const
 	destRect.w = w;
 	texture->render(destRect, SDL_FLIP_NONE);
 }
+void Paddle::mov(int speed){
+	if (pos.getX() >= 20-speed && pos.getX()<=780-w-speed)
+		pos = Vector2D(pos.getX() + speed, pos.getY());
+}
+
+void Paddle::handleEvents(SDL_Event event) {
+	
+	if (event.type == SDL_KEYDOWN) {
+		switch (event.key.keysym.sym)
+		{
+		case SDLK_LEFT:			
+			mov(-10);
+			break;
+		case SDLK_RIGHT:			
+			mov(10);			
+			break;
+		default:
+			break;
+		}
+	}
+}
