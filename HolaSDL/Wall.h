@@ -19,4 +19,6 @@ public:
 	Wall(uint w, uint h, Vector2D pos, Texture* t);
 	~Wall() {}
 	void render() const;
+	SDL_Rect* getDestRect();
+		
 };

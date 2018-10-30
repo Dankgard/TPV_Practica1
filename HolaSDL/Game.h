@@ -37,4 +37,5 @@ public:
 	void render() const;
 	void handleEvents();
 	void update();
+	bool collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collVector);
 };
