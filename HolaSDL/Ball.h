@@ -13,11 +13,13 @@ private:
 	uint w = 0;
 	uint h = 0;
 	Vector2D speed;
+	SDL_Rect destRect;
 	Texture* texture = nullptr;
 
 public:
 	Ball();
 	Ball(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t);
-	~Ball() {}
-	void render() const;
+	~Ball() {}	
+	void render();
+	void update();
 };

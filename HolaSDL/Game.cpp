@@ -22,7 +22,7 @@ Game::Game() {
 
 	// We finally create the game objects
 	Vector2D ballpos (400, 400);
-	Vector2D ballspeed(0,0);
+	Vector2D ballspeed(1,0);
 	ball = new Ball(ballpos, 25, 25, ballspeed, textures[0]);
 	Vector2D paddlepos(400, 500);
 	Vector2D paddlespeed(0, 0);
@@ -55,13 +55,13 @@ void Game::run() {
 	while(!exit) {
 		// Falta el control de tiempo
 		handleEvents();
-		//update();
+		update();
 		render();
 	}
 }
 
 void Game::update() {
-	//dog->update();
+	ball->update();
 }
 
 void Game::render() const {
