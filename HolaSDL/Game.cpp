@@ -22,7 +22,7 @@ Game::Game() {
 
 	// We finally create the game objects
 	Vector2D ballpos (400, 400);
-	Vector2D ballspeed(1,0);
+	Vector2D ballspeed(0.2,-0.2);
 	ball = new Ball(ballpos, 25, 25, ballspeed, textures[0]);
 	Vector2D paddlepos(400, 500);
 	Vector2D paddlespeed(0, 0);
