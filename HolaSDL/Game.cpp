@@ -22,7 +22,7 @@ Game::Game() {
 
 	// We finally create the game objects
 	Vector2D ballpos (400, 400);
-	Vector2D ballspeed(0.2,-0.2);
+	Vector2D ballspeed(0.2,-0.1);
 	ball = new Ball(ballpos, 25, 25, ballspeed, textures[0], this);
 	Vector2D paddlepos(400, 500);
 	Vector2D paddlespeed(0, 0);
@@ -95,6 +95,10 @@ bool Game::collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collV
 	}
 	else if (SDL_HasIntersection(rect, topwall->getDestRect())) {
 		collVector = Vector2D(0, -1);
+		return true;
+	}
+	else if (SDL_HasIntersection(rect, paddle->getDestRect())) {
+		collVector = Vector2D(0, 1);
 		return true;
 	}
 }

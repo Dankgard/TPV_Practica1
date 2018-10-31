@@ -20,6 +20,7 @@ public:
 	Paddle(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t);
 	~Paddle() {}
 	void render() const;
-	void mov(int speed);	
+	void mov(int speed);
+	SDL_Rect* getDestRect();
 	void Paddle::handleEvents(SDL_Event event);
 };

@@ -21,6 +21,15 @@ void Paddle::mov(int speed){
 		pos = Vector2D(pos.getX() + speed, pos.getY());
 }
 
+SDL_Rect* Paddle::getDestRect() {
+	SDL_Rect destRect;
+	destRect.x = pos.getX();
+	destRect.y = pos.getY();
+	destRect.h = h;
+	destRect.w = w;
+	return &destRect;
+}
+
 void Paddle::handleEvents(SDL_Event event) {
 	
 	if (event.type == SDL_KEYDOWN) {
