@@ -22,10 +22,10 @@ Game::Game() {
 
 	// We finally create the game objects
 	Vector2D ballpos (400, 400);
-	Vector2D ballspeed(0.2,-0.1);
+	Vector2D ballspeed(0.075, -0.0375);
 	ball = new Ball(ballpos, 25, 25, ballspeed, textures[0], this);
 	Vector2D paddlepos(400, 500);
-	Vector2D paddlespeed(0, 0);
+	Vector2D paddlespeed(20, 0);
 	paddle = new Paddle(paddlepos, 100, 20, paddlespeed, textures[2]);
 	Vector2D rightwallpos(775, 0);
 	rightwall = new Wall(20, WIN_HEIGHT, rightwallpos, textures[3]);
@@ -101,5 +101,6 @@ bool Game::collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collV
 		collVector = Vector2D(0, 1);
 		return true;
 	}
+	
 }
 

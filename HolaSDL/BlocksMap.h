@@ -22,4 +22,6 @@ public:
 	void loadMap(string filename, Texture* texture);
 	void render() const;
 	uint blockNumber() const;
+	Block* BlocksMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector);
+	Block* BlocksMap::blockAt(const Vector2D& p);
 };

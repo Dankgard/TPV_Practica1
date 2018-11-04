@@ -36,10 +36,10 @@ void Paddle::handleEvents(SDL_Event event) {
 		switch (event.key.keysym.sym)
 		{
 		case SDLK_LEFT:			
-			mov(-10);
+			mov(-speed.getX());
 			break;
 		case SDLK_RIGHT:			
-			mov(10);			
+			mov(speed.getX());			
 			break;
 		default:
 			break;

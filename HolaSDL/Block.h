@@ -23,4 +23,8 @@ public:
 	~Block() {}
 	uint getColor() { return color; }
 	void render() const;
+	uint getX() { return pos.getX(); }
+	uint getY() { return pos.getY(); }
+	uint getW() { return w; }
+	uint getH() { return h; }
 };
