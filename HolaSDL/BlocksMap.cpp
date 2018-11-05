@@ -89,60 +89,60 @@ uint BlocksMap::blockNumber() const
    bloque con el que ésta colisiona (nullptr si no colisiona con nadie) y el
    vector normal perpendicular a la superficie de colisión.
 */
-Block* BlocksMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector) {
-	Vector2D p0 = { (double)ballRect.x, (double)ballRect.y }; // top-left
-	Vector2D p1 = { (double)ballRect.x + (double)ballRect.w, (double)ballRect.y }; // top-right
-	Vector2D p2 = { (double)ballRect.x, (double)ballRect.y + (double)ballRect.h }; // bottom-left
-	Vector2D p3 = { (double)ballRect.x + (double)ballRect.w, (double)ballRect.y + (double)ballRect.h }; // bottom-right
+Block* BlocksMap::collides(const SDL_Rect* ballRect, const Vector2D* ballVel, Vector2D& collVector) {
+	Vector2D p0 = { (double)ballRect->x, (double)ballRect->y }; // top-left
+	Vector2D p1 = { (double)ballRect->x + (double)ballRect->w, (double)ballRect->y }; // top-right
+	Vector2D p2 = { (double)ballRect->x, (double)ballRect->y + (double)ballRect->h }; // bottom-left
+	Vector2D p3 = { (double)ballRect->x + (double)ballRect->w, (double)ballRect->y + (double)ballRect->h }; // bottom-right
 	Block* b = nullptr;
-	if (ballVel.getX() < 0 && ballVel.getY() < 0) {
-		if ((b = blockAt(p0))) {
+	if (ballVel->getX() < 0 && ballVel->getY() < 0) {
+		if ((b = blockAt(p0)) && b->getColor() != 0) {
 			if ((b->getY() + b->getH() - p0.getY()) <= (b->getX() + b->getW() - p0.getX()))
 				collVector = { 0,1 }; // Borde inferior mas cerca de p0
 			else
 				collVector = { 1,0 }; // Borde dcho mas cerca de p0
 		}
-		else if ((b = blockAt(p1))) {
+		else if ((b = blockAt(p1)) && b->getColor() != 0) {
 			collVector = { 0,1 };
 		}
-		else if ((b = blockAt(p2))) collVector = { 1,0 };
+		else if ((b = blockAt(p2)) && b->getColor() != 0) collVector = { 1,0 };
 	}
-	else if (ballVel.getX() >= 0 && ballVel.getY() < 0) {
-		if ((b = blockAt(p1))) {
-			if (((b->getY() + b->getH() - p1.getY()) <= (p1.getX() - b->getX())) || ballVel.getX() == 0)
+	else if (ballVel->getX() >= 0 && ballVel->getY() < 0) {
+		if ((b = blockAt(p1)) && b->getColor() != 0) {
+			if (((b->getY() + b->getH() - p1.getY()) <= (p1.getX() - b->getX())) || ballVel->getX() == 0)
 				collVector = { 0,1 }; // Borde inferior mas cerca de p1
 			else
 				collVector = { -1,0 }; // Borde izqdo mas cerca de p1
 		}
-		else if ((b = blockAt(p0))) {
+		else if ((b = blockAt(p0)) && b->getColor() != 0) {
 			collVector = { 0,1 };
 		}
-		else if ((b = blockAt(p3))) collVector = { -1,0 };
+		else if ((b = blockAt(p3)) && b->getColor() != 0) collVector = { -1,0 };
 	}
-	else if (ballVel.getX() > 0 && ballVel.getY() > 0) {
-		if ((b = blockAt(p3))) {
+	else if (ballVel->getX() > 0 && ballVel->getY() > 0) {
+		if ((b = blockAt(p3)) && b->getColor() != 0) {
 			if (((p3.getY() - b->getY()) <= (p3.getX() - b->getX()))) // || ballVel.getX() == 0)
 				collVector = { 0,-1 }; // Borde superior mas cerca de p3
 			else
 				collVector = { -1,0 }; // Borde dcho mas cerca de p3
 		}
-		else if ((b = blockAt(p2))) {
+		else if ((b = blockAt(p2)) && b->getColor() != 0) {
 			collVector = { 0,-1 };
 		}
-		else if ((b = blockAt(p1))) collVector = { -1,0 };
+		else if ((b = blockAt(p1)) && b->getColor() != 0) collVector = { -1,0 };
 	}
-	else if (ballVel.getX() < 0 && ballVel.getY() > 0) {
-		if ((b = blockAt(p2))) {
+	else if (ballVel->getX() < 0 && ballVel->getY() > 0) {
+		if ((b = blockAt(p2)) && b->getColor() != 0) {
 			if (((p2.getY() - b->getY()) <= (b->getX() + b->getW() - p2.getX()))) // || ballVel.getX() == 0)
 				collVector = { 0,-1 }; // Borde superior mas cerca de p2
 			else
 				collVector = { 1,0 }; // Borde dcho mas cerca de p0
 		}
-		else if ((b = blockAt(p3))) {
+		else if ((b = blockAt(p3)) && b->getColor() != 0) {
 			collVector = { 0,-1 };
 		}
-		else if ((b = blockAt(p0))) collVector = { 1,0 };
-	}
+		else if ((b = blockAt(p0)) && b->getColor() != 0) collVector = { 1,0 };
+	}			
 	return b;
 }
 
@@ -159,16 +159,26 @@ Block* BlocksMap::blockAt(const Vector2D& p) {
 		return nullptr;
 	// si no, va buscando el bloque en el que se encuentra p
 	else {
-		int j;
-		int i;
-		while ((blocks[j][0]->getX() - (cellW / 2)) < p.getX())
+		int j = 0;
+		int i = 0;
+		while ( j < mapW && (blocks[j][0]->getX() - (cellW / 2)) < p.getX())
 		{
 			j++;
 		}
-		while ((blocks[0][i]->getY() - (cellH / 2)) < p.getY())
+		while (i < mapH && (blocks[0][i]->getY() - (cellH / 2)) < p.getY())
 		{
 			i++;
 		}
+		if (j == 0)
+			j = 1;
+		if (i == 0)
+			i = 1;
 		return blocks[j-1][i-1];
 	}
+}
+
+// destruye el bloque block
+void BlocksMap::ballHitsBlock(Block* block)
+{
+	block->setColor(0);
 }

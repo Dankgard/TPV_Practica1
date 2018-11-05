@@ -28,6 +28,7 @@ private:
 	Wall* topwall = nullptr;
 	Paddle* paddle = nullptr;
 	bool exit = false;
+	bool win = false;
 	Texture* textures[NUM_TEXTURES];
 
 public:

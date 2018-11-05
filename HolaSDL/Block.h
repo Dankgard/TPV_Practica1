@@ -22,6 +22,7 @@ public:
 	Block(uint w, uint h, uint color, uint row, uint col, Vector2D pos, Texture* t);
 	~Block() {}
 	uint getColor() { return color; }
+	void setColor(uint col) { color = col; }
 	void render() const;
 	uint getX() { return pos.getX(); }
 	uint getY() { return pos.getY(); }

@@ -22,7 +22,7 @@ Game::Game() {
 
 	// We finally create the game objects
 	Vector2D ballpos (400, 400);
-	Vector2D ballspeed(0.075, -0.0375);
+	Vector2D ballspeed(0.05, -0.025);
 	ball = new Ball(ballpos, 25, 25, ballspeed, textures[0], this);
 	Vector2D paddlepos(400, 500);
 	Vector2D paddlespeed(20, 0);
@@ -101,6 +101,13 @@ bool Game::collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collV
 		collVector = Vector2D(0, 1);
 		return true;
 	}
-	
+	else if (true)
+	{
+		Block* block = blocksmap->collides(rect, speed, collVector);
+		if (block != nullptr)
+			blocksmap->ballHitsBlock(block);
+		if (blocksmap->blockNumber() == 0)
+			win = true;
+	}
 }
 
