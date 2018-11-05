@@ -4,8 +4,8 @@
 
 Block::Block() : pos(), w(), h(), texture() {}
 
-Block::Block(uint w, uint h, uint color, uint row, uint col, Vector2D pos, Texture* t) :
-	w(w), h(h), color(color), row(row), col(col), pos(pos), texture(t) {}
+Block::Block(uint w, uint h, uint color, uint row, uint col, int X, int Y, Texture* t) :
+	w(w), h(h), color(color), row(row), col(col), pos(X,Y), texture(t) {}
 
 void Block::render() const
 {

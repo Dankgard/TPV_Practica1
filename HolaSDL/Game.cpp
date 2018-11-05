@@ -22,8 +22,8 @@ Game::Game() {
 
 	// We finally create the game objects
 	Vector2D ballpos (400, 400);
-	Vector2D ballspeed(0.05, -0.025);
-	ball = new Ball(ballpos, 25, 25, ballspeed, textures[0], this);
+	Vector2D ballspeed(0.05, -0.05);
+	ball = new Ball(ballpos, 15, 15, ballspeed, textures[0], this);
 	Vector2D paddlepos(400, 500);
 	Vector2D paddlespeed(20, 0);
 	paddle = new Paddle(paddlepos, 100, 20, paddlespeed, textures[2]);
@@ -33,8 +33,8 @@ Game::Game() {
 	leftwall = new Wall(20, WIN_HEIGHT, leftwallpos, textures[3]);
 	Vector2D topwallpos(0, 0);
 	topwall = new Wall(WIN_WIDTH, 20, topwallpos, textures[4]);
-	blocksmap = new BlocksMap(0,0,50,30);
-	blocksmap->loadMap("..//maps//level01.ark", textures[1]);
+	blocksmap = new BlocksMap(600, 300, textures[1]);
+	blocksmap->loadMap("..//maps//level03.ark", textures[1]);
 	
 }
 Game::~Game() {
@@ -101,7 +101,7 @@ bool Game::collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collV
 		collVector = Vector2D(0, 1);
 		return true;
 	}
-	else if (true)
+	else if (SDL_HasIntersection(rect, blocksmap->getDestRect()))
 	{
 		Block* block = blocksmap->collides(rect, speed, collVector);
 		if (block != nullptr)

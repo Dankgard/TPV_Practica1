@@ -19,7 +19,7 @@ private:
 
 public:
 	Block();
-	Block(uint w, uint h, uint color, uint row, uint col, Vector2D pos, Texture* t);
+	Block(uint w, uint h, uint color, uint row, uint col, int X, int Y, Texture* t);
 	~Block() {}
 	uint getColor() { return color; }
 	void setColor(uint col) { color = col; }

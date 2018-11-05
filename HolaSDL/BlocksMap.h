@@ -11,17 +11,20 @@ private:
 	Block*** blocks = nullptr;
 	uint mapW = 0;
 	uint mapH = 0;
-	uint cellW = 0;
-	uint cellH = 0;
-	
+	uint filas;
+	uint columnas;
+	uint x;
+	uint y;
+	Texture* blockTexture = nullptr;
 
 public:
 	BlocksMap();
-	BlocksMap(uint mapW, uint mapH, uint cellW, uint cellH);
+	BlocksMap(uint mapW, uint mapH, Texture* blockTexture);
 	~BlocksMap();
 	void loadMap(string filename, Texture* texture);
 	void render() const;
 	uint blockNumber() const;
+	SDL_Rect* getDestRect();
 	Block* BlocksMap::collides(const SDL_Rect* ballRect, const Vector2D* ballVel, Vector2D& collVector);
 	Block* BlocksMap::blockAt(const Vector2D& p);
 	void ballHitsBlock(Block* block);

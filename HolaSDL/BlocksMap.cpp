@@ -5,15 +5,24 @@
 #include <fstream>
 #include <string>
 
-BlocksMap::BlocksMap() : blocks(), mapH(), mapW(), cellH(), cellW() {}
-BlocksMap::BlocksMap(uint mapW, uint mapH, uint cellW, uint cellH)
-	: blocks(), mapW(mapW), mapH(mapH), cellW(cellW), cellH(cellH) {}
+BlocksMap::BlocksMap() : blocks(), mapH(), mapW() {}
+BlocksMap::BlocksMap(uint mapW, uint mapH, Texture* texture)
+	: blocks(), mapW(mapW), mapH(mapH), blockTexture(texture) {}
 
 BlocksMap::~BlocksMap() {
 	for (uint a = 0; a < mapW; a++) {
 		delete[] blocks[a];
 	}
 	delete[] blocks;
+}
+
+SDL_Rect* BlocksMap::getDestRect() {
+	SDL_Rect destRect;
+	destRect.x = x;
+	destRect.y = y;
+	destRect.h = mapH;
+	destRect.w = mapW;
+	return &destRect;
 }
 
 void BlocksMap::loadMap(string filename, Texture* texture)
@@ -24,33 +33,29 @@ void BlocksMap::loadMap(string filename, Texture* texture)
 	if (!input.is_open()) cout << "No se encuentra el fichero" << endl;
 	else
 	{
-		uint rowNumber;
-		uint colNumber;
-		input >> rowNumber;
-		input >> colNumber;
-		mapW = colNumber;
-		mapH = rowNumber;
-		blocks = new Block**[colNumber];
-		for (uint x = 0; x < colNumber; x++) {
-			blocks[x] = new Block*[rowNumber];
-		}
-		//Para colocarlo en el medio de la imagen
-		uint xold = (800 - (colNumber * cellW)) / 2;
-		uint x = xold;
-		uint y = 20;
+		
+		input >> filas;
+		input >> columnas;
+		//mapW = colNumber;
+		//mapH = rowNumber;
+		blocks = new Block**[columnas];
+		for (uint x = 0; x < columnas; x++) {
+			blocks[x] = new Block*[filas];
+		}		
 
-		for (uint i = 0;i < rowNumber;i++)
+		for (uint i = 0;i < filas;i++)
 		{
-			for (uint j = 0;j < colNumber;j++)
+			for (uint j = 0;j < columnas;j++)
 			{				
-				Vector2D pos(x + j*cellW, y + i*cellH);
+				int margen = (800 - mapW) / 2;
+				int posX = j * (mapW / columnas) + margen;
+				int posY = i * (mapH / filas) + 20;
 				uint color;
 				input >> color;
-				blocks[j][i] = new Block(cellW, cellH, color, i, j, pos, texture);
-				x++;
+				blocks[j][i] = new Block(mapW/columnas, mapH/filas, color, i, j, posX, posY, blockTexture);				
 			}
-			x = xold;
-			y++;
+			x = blocks[0][0]->getX();
+			y = blocks[0][0]->getY();
 		}
 	}
 	input.close();
@@ -60,9 +65,9 @@ void BlocksMap::render() const
 {
 	//uint rowNumber = mapH; //sizeof blocks / sizeof blocks[0];
 	//uint colNumber = mapW; //sizeof blocks[0] / sizeof blocks[0, 0];
-	for (uint i = 0;i < mapH;i++)
+	for (uint i = 0;i < filas;i++)
 	{
-		for (uint j = 0; j < mapW;j++)
+		for (uint j = 0; j < columnas;j++)
 		{
 			blocks[j][i]->render();
 		}
@@ -71,17 +76,16 @@ void BlocksMap::render() const
 
 uint BlocksMap::blockNumber() const
 {
-	uint blockNumber = 0;
-	uint rowNumber = mapH;
-	uint colNumber = mapW;
-	for (uint i = 0;i < rowNumber;i++)
+	uint blockNumber = 0;	
+	for (uint i = 0;i < filas;i++)
 	{
-		for (uint j = 0; j < colNumber;j++)
+		for (uint j = 0; j < columnas;j++)
 		{
 			if (blocks[j][i]->getColor() != 0)
 				blockNumber++;
 		}
 	}
+	cout << blockNumber << " ";
 	return blockNumber;
 }
 
@@ -142,9 +146,11 @@ Block* BlocksMap::collides(const SDL_Rect* ballRect, const Vector2D* ballVel, Ve
 			collVector = { 0,-1 };
 		}
 		else if ((b = blockAt(p0)) && b->getColor() != 0) collVector = { 1,0 };
-	}			
+	}
 	return b;
 }
+
+
 
 
 /*  Devuelve el puntero al bloque del mapa de bloques al que pertenece el punto p.
@@ -153,19 +159,31 @@ Block* BlocksMap::collides(const SDL_Rect* ballRect, const Vector2D* ballVel, Ve
 */
 Block* BlocksMap::blockAt(const Vector2D& p) {
 	
+	bool encontrado = false;
+	for (int y=0;y<filas;y++)
+	{
+		for (int x=0;x<columnas;x++)
+		{
+			if(blocks[x][y] !=nullptr)
+			if (p.getX() >= blocks[x][y]->getX() && p.getY() >= blocks[x][y]->getY() && p.getX() <= (blocks[x][y]->getX() + blocks[x][y]->getW()) && p.getY() <= (blocks[x][y]->getY() + blocks[x][y]->getH()))
+				return blocks[x][y];		
+		}							
+	}
+	return nullptr;
+	
 	// si se sale de los limites del mapa de bloques
-	if (p.getX() < (blocks[0][0]->getX() - (cellW / 2)) || p.getX() > (blocks[mapW - 1][0]->getX() + (cellW / 2)) ||
-		p.getY() < (blocks[0][0]->getY() - (cellH / 2)) || p.getY() > (blocks[0][mapH - 1]->getY() + (cellH / 2)))
+	/*if (p.getX() < (blocks[0][0]->getX() - ((mapW / columnas) / 2)) || p.getX() > (blocks[mapW - 1][0]->getX() + ((mapW / columnas) / 2)) ||
+		p.getY() < (blocks[0][0]->getY() - ((mapH / filas) / 2)) || p.getY() > (blocks[0][mapH - 1]->getY() + ((mapH / filas) / 2)))
 		return nullptr;
 	// si no, va buscando el bloque en el que se encuentra p
 	else {
 		int j = 0;
 		int i = 0;
-		while ( j < mapW && (blocks[j][0]->getX() - (cellW / 2)) < p.getX())
+		while ( j < mapW && (blocks[j][0]->getX() - ((mapW / columnas) / 2)) < p.getX())
 		{
 			j++;
 		}
-		while (i < mapH && (blocks[0][i]->getY() - (cellH / 2)) < p.getY())
+		while (i < mapH && (blocks[0][i]->getY() - ((mapH / filas) / 2)) < p.getY())
 		{
 			i++;
 		}
@@ -173,8 +191,8 @@ Block* BlocksMap::blockAt(const Vector2D& p) {
 			j = 1;
 		if (i == 0)
 			i = 1;
-		return blocks[j-1][i-1];
-	}
+		return blocks[j-1][i-1];*/
+	
 }
 
 // destruye el bloque block
