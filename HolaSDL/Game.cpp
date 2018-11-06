@@ -33,8 +33,8 @@ Game::Game() {
 	leftwall = new Wall(20, WIN_HEIGHT, leftwallpos, textures[3]);
 	Vector2D topwallpos(0, 0);
 	topwall = new Wall(WIN_WIDTH, 20, topwallpos, textures[4]);
-	blocksmap = new BlocksMap(600, 300, textures[1]);
-	blocksmap->loadMap("..//maps//level03.ark", textures[1]);
+	blocksmap = new BlocksMap(300, 300, textures[1]);
+	blocksmap->loadMap("..//maps//level04.ark", textures[1]);
 	
 }
 Game::~Game() {
