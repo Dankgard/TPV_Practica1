@@ -169,30 +169,7 @@ Block* BlocksMap::blockAt(const Vector2D& p) {
 				return blocks[x][y];		
 		}							
 	}
-	return nullptr;
-	
-	// si se sale de los limites del mapa de bloques
-	/*if (p.getX() < (blocks[0][0]->getX() - ((mapW / columnas) / 2)) || p.getX() > (blocks[mapW - 1][0]->getX() + ((mapW / columnas) / 2)) ||
-		p.getY() < (blocks[0][0]->getY() - ((mapH / filas) / 2)) || p.getY() > (blocks[0][mapH - 1]->getY() + ((mapH / filas) / 2)))
-		return nullptr;
-	// si no, va buscando el bloque en el que se encuentra p
-	else {
-		int j = 0;
-		int i = 0;
-		while ( j < mapW && (blocks[j][0]->getX() - ((mapW / columnas) / 2)) < p.getX())
-		{
-			j++;
-		}
-		while (i < mapH && (blocks[0][i]->getY() - ((mapH / filas) / 2)) < p.getY())
-		{
-			i++;
-		}
-		if (j == 0)
-			j = 1;
-		if (i == 0)
-			i = 1;
-		return blocks[j-1][i-1];*/
-	
+	return nullptr;		
 }
 
 // destruye el bloque block
