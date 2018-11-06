@@ -41,6 +41,7 @@ void Ball::update() {
 		game->death();
 	}
 }
-void Ball::resetBall(Vector2D originalPos) {
+void Ball::resetBall(Vector2D originalPos,double speedX, double speedY) {
+	speed = Vector2D(-speedX, speedY);
 	pos = originalPos;
 }

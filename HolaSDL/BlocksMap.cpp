@@ -10,7 +10,7 @@ BlocksMap::BlocksMap(uint mapW, uint mapH, Texture* texture)
 	: blocks(), mapW(mapW), mapH(mapH), blockTexture(texture) {}
 
 BlocksMap::~BlocksMap() {
-	for (uint a = 0; a < mapW; a++) {
+	for (uint a = 0; a < columnas; a++) {
 		delete[] blocks[a];
 	}
 	delete[] blocks;

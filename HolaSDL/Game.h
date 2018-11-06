@@ -32,6 +32,7 @@ private:
 	bool gameOver = false;
 	int lifes = 0;
 	Vector2D ballpos;
+	Vector2D ballspeed;
 	Texture* textures[NUM_TEXTURES];
 
 public:

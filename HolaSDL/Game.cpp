@@ -22,8 +22,8 @@ Game::Game() {
 
 	// We finally create the game objects
 	lifes = 3;
-	ballpos=Vector2D (400, 400);
-	Vector2D ballspeed(0.05, -0.05);
+	ballpos = Vector2D (400, 400);
+	ballspeed = Vector2D(0.02, -0.02);
 	ball = new Ball(ballpos, 15, 15, ballspeed, textures[0], this);
 	Vector2D paddlepos(400, 500);
 	Vector2D paddlespeed(20, 0);
@@ -35,7 +35,7 @@ Game::Game() {
 	Vector2D topwallpos(0, 0);
 	topwall = new Wall(WIN_WIDTH, 20, topwallpos, textures[4]);
 	blocksmap = new BlocksMap(300, 300, textures[1]);
-	blocksmap->loadMap("..//maps//level04.ark", textures[1]);
+	blocksmap->loadMap("..//maps//level01.ark", textures[1]);
 	
 }
 Game::~Game() {
@@ -99,7 +99,29 @@ bool Game::collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collV
 		return true;
 	}
 	else if (SDL_HasIntersection(rect, paddle->getDestRect())) {
-		collVector = Vector2D(0, 1);
+		double ballWidth = rect->w;
+		double ballCenterX = rect->x + ballWidth / 2;
+		SDL_Rect* paddlerect = paddle->getDestRect();
+		double paddleWidth = paddlerect->w;
+		double paddleCenterX = paddlerect->x + paddleWidth / 2;
+		/*double speedX = m_ball.speedX();
+		double speedY = m_ball.speedY();
+		double speedXY = Math.sqrt(speedX*speedX + speedY * speedY);
+		double posX = (ballCenterX - paddleCenterX) / (paddleWidth / 2);
+		final double influenceX = 0.75;
+		speedX = speedXY * posX * influenceX;
+		m_ball.setSpeedX(speedX);
+		speedY = Math.sqrt(speedXY*speedXY - speedX * speedX) *
+			(speedY > 0 ? -1 : 1);
+		m_ball.setSpeedY(speedY);*/
+		int middleX = paddlerect->x + (paddlerect->w / 2);
+		if(rect->x < middleX)
+			collVector = Vector2D(0.5, 1);
+		else if(rect->x > middleX)
+			collVector = Vector2D(0.5, 1);
+		else
+			collVector = Vector2D(0, 1);
+		collVector.normalize();
 		return true;
 	}
 	else if (SDL_HasIntersection(rect, blocksmap->getDestRect()))
@@ -114,7 +136,7 @@ bool Game::collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collV
 void Game::death() {
 	if (lifes > 1) {
 		lifes--;
-		ball->resetBall(ballpos);
+		ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
 	}
 	else
 	{
