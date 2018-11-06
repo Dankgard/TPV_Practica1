@@ -21,7 +21,8 @@ Game::Game() {
 	}
 
 	// We finally create the game objects
-	Vector2D ballpos (400, 400);
+	lifes = 3;
+	ballpos=Vector2D (400, 400);
 	Vector2D ballspeed(0.05, -0.05);
 	ball = new Ball(ballpos, 15, 15, ballspeed, textures[0], this);
 	Vector2D paddlepos(400, 500);
@@ -109,5 +110,17 @@ bool Game::collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collV
 		if (blocksmap->blockNumber() == 0)
 			win = true;
 	}
+}
+void Game::death() {
+	if (lifes > 1) {
+		lifes--;
+		ball->resetBall(ballpos);
+	}
+	else
+	{
+		lifes = 3;
+		cout << "HAS PERDIDO";
+	}
+	cout << lifes << endl;
 }
 

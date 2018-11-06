@@ -24,4 +24,5 @@ public:
 	void render() const;
 	void update();
 	SDL_Rect getDestRect();
+	void resetBall(Vector2D originalPos);
 };

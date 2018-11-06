@@ -36,4 +36,11 @@ void Ball::update() {
 		speed = speed - (collVector * (2 * (speed*collVector)));
 		pos = prevPos + speed;
 	}
+
+	if(pos.getY() > WIN_HEIGHT) {
+		game->death();
+	}
+}
+void Ball::resetBall(Vector2D originalPos) {
+	pos = originalPos;
 }

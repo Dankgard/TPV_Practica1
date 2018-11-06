@@ -29,6 +29,9 @@ private:
 	Paddle* paddle = nullptr;
 	bool exit = false;
 	bool win = false;
+	bool gameOver = false;
+	int lifes = 0;
+	Vector2D ballpos;
 	Texture* textures[NUM_TEXTURES];
 
 public:
@@ -39,4 +42,5 @@ public:
 	void handleEvents();
 	void update();
 	bool collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collVector);
+	void death();
 };
