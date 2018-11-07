@@ -2,5 +2,5 @@ Miembros:
 -Gonzalo Pérez Martín
 -Daniel García-Villarrubia López-Menchero
 
-No conseguimos hacer las excepciones, porque no sabíamos como enviar la excepcion al main.
+No entendiamos muy bien a que se refería con errores de SDL, y hemos usado SDL_GetError en el catch del main, aunque no sabemos si funciona así.
 En la parte opcional hicimos Extender la mecánica del juego para que al romper todos los bloques se pase a otra pantalla.
