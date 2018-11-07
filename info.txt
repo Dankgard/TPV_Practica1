@@ -1,0 +1,6 @@
+Miembros:
+-Gonzalo Pérez Martín
+-Daniel García-Villarrubia López-Menchero
+
+No conseguimos hacer las excepciones, porque no sabíamos como enviar la excepcion al main.
+En la parte opcional hicimos Extender la mecánica del juego para que al romper todos los bloques se pase a otra pantalla.
