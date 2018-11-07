@@ -10,10 +10,16 @@ BlocksMap::BlocksMap(uint mapW, uint mapH, Texture* texture)
 	: blocks(), mapW(mapW), mapH(mapH), blockTexture(texture) {}
 
 BlocksMap::~BlocksMap() {
-	for (uint a = 0; a < columns; a++) {
-		delete[] blocks[a];
+	if (blocks != nullptr) {
+		for (int a = 0; a < rows; a++) {
+			for (int b = 0; b < columns; b++) {
+				delete blocks[a][b];
+			}
+			delete blocks[a];
+		}
+		delete[] blocks;
+		blocks = nullptr;
 	}
-	delete[] blocks;
 }
 
 // devuelve el sdl_rect del mapa de bloques
