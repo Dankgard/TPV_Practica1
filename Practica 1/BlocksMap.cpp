@@ -11,8 +11,8 @@ BlocksMap::BlocksMap(uint mapW, uint mapH, Texture* texture)
 
 BlocksMap::~BlocksMap() {
 	if (blocks != nullptr) {
-		for (int a = 0; a < rows; a++) {
-			for (int b = 0; b < columns; b++) {
+		for (int a = 0; a < columns; a++) {
+			for (int b = 0; b < rows; b++) {
 				delete blocks[a][b];
 			}
 			delete blocks[a];
