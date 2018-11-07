@@ -16,7 +16,13 @@ Game::Game() {
 	// We now create the textures
 	for(uint i = 0; i < NUM_TEXTURES; i++) {
 		textures[i] = new Texture(renderer);
-		textures[i]->load("..//images//" + nombre[i],1,1);
+		try {
+			textures[i]->load("..//images//" + nombre[i], 1, 1);
+		}
+		catch (string s)
+		{
+			throw s;
+		}
 	}
 
 	// We finally create the game objects
@@ -34,7 +40,13 @@ Game::Game() {
 	Vector2D topwallpos(0, 0);
 	topwall = new Wall(WIN_WIDTH, 20, topwallpos, textures[(int)topsidetexture]);
 	blocksmap = new BlocksMap(600, 300, textures[1]);
-	blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
+	try {
+		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
+	}
+	catch (string s)
+	{
+		throw s;
+	}
 	cout << "Lifes: " << lifes << endl;
 	
 }
@@ -78,7 +90,13 @@ void Game::update() {
 			win = false;
 			currentLevel++;
 			cout << "Next Level" << endl;
-			blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[1]);
+			try {
+				blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
+			}
+			catch (string s)
+			{
+				throw s;
+			}
 		}
 		ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
 		SDL_Delay(3000);
@@ -164,7 +182,13 @@ void Game::death() {
 		ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
 		SDL_Delay(3000);
 		currentLevel = 0;
-		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[1]);
+		try {
+			blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
+		}
+		catch (string s)
+		{
+			throw s;
+		}
 		lifes = 3;
 	}
 	cout << "Lifes: " << lifes << endl;

@@ -29,35 +29,44 @@ SDL_Rect* BlocksMap::getDestRect() {
 // carga el mapa de un fichero de texto
 void BlocksMap::loadMap(string filename, Texture* texture)
 {
-	ifstream input;
-	input.open(filename);
+	try {
+		ifstream input;
+		input.open(filename);
 
-	if (!input.is_open()) cout << "No se encuentra el fichero" << endl;
-	else
-	{
-		input >> rows;
-		input >> columns;
-		blocks = new Block**[columns];
-		for (uint x = 0; x < columns; x++) {
-			blocks[x] = new Block*[rows];
-		}		
-
-		for (uint i = 0;i < rows;i++)
+		if (!input.is_open()) throw "No se encuentra el fichero";
+		else
 		{
-			for (uint j = 0;j < columns;j++)
-			{				
-				int margen = (800 - mapW) / 2;
-				int posX = j * (mapW / columns) + margen;
-				int posY = i * (mapH / rows) + 20;
-				uint color;
-				input >> color;
-				blocks[j][i] = new Block(mapW/columns, mapH/rows, color, i, j, posX, posY, blockTexture);				
+			input >> rows;
+			input >> columns;
+			blocks = new Block**[columns];
+			for (uint x = 0; x < columns; x++) {
+				blocks[x] = new Block*[rows];
 			}
-			x = blocks[0][0]->getX();
-			y = blocks[0][0]->getY();
+
+			for (uint i = 0;i < rows;i++)
+			{
+				for (uint j = 0;j < columns;j++)
+				{
+					int margen = (800 - mapW) / 2;
+					int posX = j * (mapW / columns) + margen;
+					int posY = i * (mapH / rows) + 20;
+					uint color;
+					input >> color;
+					blocks[j][i] = new Block(mapW / columns, mapH / rows, color, i, j, posX, posY, blockTexture);
+				}
+				x = blocks[0][0]->getX();
+				y = blocks[0][0]->getY();
+			}
 		}
+		input.close();
 	}
-	input.close();
+	catch (string s)
+	{
+		if (s.empty())
+			throw "Error al leer mapa";
+		else
+			throw s;
+	}
 }
 
 // renderiza el mapa de bloques

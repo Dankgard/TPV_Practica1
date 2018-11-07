@@ -12,6 +12,15 @@ using uint = unsigned int;
 
 int main(int argc, char* argv[]){
 	Game game;
-	game.run();
+	try {
+		game.run();
+	}
+	catch (string s)
+	{
+		if (s.empty())
+			cout << SDL_GetError;
+		else
+			cout << s;
+	}
 	return 0;
 }
