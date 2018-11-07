@@ -4,12 +4,14 @@
 
 using namespace std;
 
+// borra una textura
 void Texture::clean() {
 	SDL_DestroyTexture(texture);
 	texture = nullptr;
 	w = h = 0;
 }
 
+// carga una textura
 void Texture::load(string filename, uint nRows, uint nCols) {
 	SDL_Surface* tempSurface = IMG_Load(filename.c_str());
 	if (tempSurface == nullptr) throw "Error loading surface from " + filename;
@@ -25,6 +27,7 @@ void Texture::load(string filename, uint nRows, uint nCols) {
 	SDL_FreeSurface(tempSurface);
 }
 
+// renderiza una textura entera
 void Texture::render(const SDL_Rect& destRect, SDL_RendererFlip flip) const {
 	SDL_Rect srcRect;
 	srcRect.x = 0; srcRect.y = 0;
@@ -32,6 +35,7 @@ void Texture::render(const SDL_Rect& destRect, SDL_RendererFlip flip) const {
 	SDL_RenderCopyEx(renderer, texture, &srcRect, &destRect, 0, 0, flip);
 }
 
+// renderiza una parte de una textura
 void Texture::renderFrame(const SDL_Rect& destRect, int row, int col, int angle, SDL_RendererFlip flip) const {
 	SDL_Rect srcRect;
 	int textW, textH;

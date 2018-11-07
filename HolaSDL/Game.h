@@ -35,9 +35,9 @@ private:
 	Vector2D ballspeed;
 	Texture* textures[NUM_TEXTURES];
 	string nombre[NUM_TEXTURES] = { "ball.png","bricks.png","paddle.png","side.png","topside.png" };
+	enum TextureType { balltexture, brickstexture, paddletexture, sidetexture, topsidetexture };
 	uint currentLevel = 0;
-	//string levels[3] = { "level01.ark", "level02.ark", "level03.ark" };
-	string levels[3] = { "level05.ark", "level06.ark", "level07.ark" };
+	string levels[3] = { "level01.ark", "level02.ark", "level03.ark" };	
 
 public:
 	Game();

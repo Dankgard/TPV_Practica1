@@ -10,12 +10,13 @@ BlocksMap::BlocksMap(uint mapW, uint mapH, Texture* texture)
 	: blocks(), mapW(mapW), mapH(mapH), blockTexture(texture) {}
 
 BlocksMap::~BlocksMap() {
-	for (uint a = 0; a < columnas; a++) {
+	for (uint a = 0; a < columns; a++) {
 		delete[] blocks[a];
 	}
 	delete[] blocks;
 }
 
+// devuelve el sdl_rect del mapa de bloques
 SDL_Rect* BlocksMap::getDestRect() {
 	SDL_Rect destRect;
 	destRect.x = x;
@@ -25,6 +26,7 @@ SDL_Rect* BlocksMap::getDestRect() {
 	return &destRect;
 }
 
+// carga el mapa de un fichero de texto
 void BlocksMap::loadMap(string filename, Texture* texture)
 {
 	ifstream input;
@@ -33,26 +35,23 @@ void BlocksMap::loadMap(string filename, Texture* texture)
 	if (!input.is_open()) cout << "No se encuentra el fichero" << endl;
 	else
 	{
-		
-		input >> filas;
-		input >> columnas;
-		//mapW = colNumber;
-		//mapH = rowNumber;
-		blocks = new Block**[columnas];
-		for (uint x = 0; x < columnas; x++) {
-			blocks[x] = new Block*[filas];
+		input >> rows;
+		input >> columns;
+		blocks = new Block**[columns];
+		for (uint x = 0; x < columns; x++) {
+			blocks[x] = new Block*[rows];
 		}		
 
-		for (uint i = 0;i < filas;i++)
+		for (uint i = 0;i < rows;i++)
 		{
-			for (uint j = 0;j < columnas;j++)
+			for (uint j = 0;j < columns;j++)
 			{				
 				int margen = (800 - mapW) / 2;
-				int posX = j * (mapW / columnas) + margen;
-				int posY = i * (mapH / filas) + 20;
+				int posX = j * (mapW / columns) + margen;
+				int posY = i * (mapH / rows) + 20;
 				uint color;
 				input >> color;
-				blocks[j][i] = new Block(mapW/columnas, mapH/filas, color, i, j, posX, posY, blockTexture);				
+				blocks[j][i] = new Block(mapW/columns, mapH/rows, color, i, j, posX, posY, blockTexture);				
 			}
 			x = blocks[0][0]->getX();
 			y = blocks[0][0]->getY();
@@ -61,31 +60,30 @@ void BlocksMap::loadMap(string filename, Texture* texture)
 	input.close();
 }
 
+// renderiza el mapa de bloques
 void BlocksMap::render() const
 {
-	//uint rowNumber = mapH; //sizeof blocks / sizeof blocks[0];
-	//uint colNumber = mapW; //sizeof blocks[0] / sizeof blocks[0, 0];
-	for (uint i = 0;i < filas;i++)
+	for (uint i = 0;i < rows;i++)
 	{
-		for (uint j = 0; j < columnas;j++)
+		for (uint j = 0; j < columns;j++)
 		{
 			blocks[j][i]->render();
 		}
 	}
 }
 
+// devuelve el numero de bloques no destruidos
 uint BlocksMap::blockNumber() const
 {
 	uint blockNumber = 0;	
-	for (uint i = 0;i < filas;i++)
+	for (uint i = 0;i < rows;i++)
 	{
-		for (uint j = 0; j < columnas;j++)
+		for (uint j = 0; j < columns;j++)
 		{
 			if (blocks[j][i]->getColor() != 0)
 				blockNumber++;
 		}
-	}
-	cout << blockNumber << " ";
+	}	
 	return blockNumber;
 }
 
@@ -160,9 +158,9 @@ Block* BlocksMap::collides(const SDL_Rect* ballRect, const Vector2D* ballVel, Ve
 Block* BlocksMap::blockAt(const Vector2D& p) {
 	
 	bool encontrado = false;
-	for (int y=0;y<filas;y++)
+	for (int y=0;y<rows;y++)
 	{
-		for (int x=0;x<columnas;x++)
+		for (int x=0;x<columns;x++)
 		{
 			if(blocks[x][y] !=nullptr)
 			if (p.getX() >= blocks[x][y]->getX() && p.getY() >= blocks[x][y]->getY() && p.getX() <= (blocks[x][y]->getX() + blocks[x][y]->getW()) && p.getY() <= (blocks[x][y]->getY() + blocks[x][y]->getH()))

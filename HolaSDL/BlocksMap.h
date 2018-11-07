@@ -11,8 +11,8 @@ private:
 	Block*** blocks = nullptr;
 	uint mapW = 0;
 	uint mapH = 0;
-	uint filas;
-	uint columnas;
+	uint rows;
+	uint columns;
 	uint x;
 	uint y;
 	Texture* blockTexture = nullptr;

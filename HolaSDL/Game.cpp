@@ -22,19 +22,20 @@ Game::Game() {
 	// We finally create the game objects
 	lifes = 3;
 	ballpos = Vector2D (400, 400);
-	ballspeed = Vector2D(0.02, -0.02);
-	ball = new Ball(ballpos, 15, 15, ballspeed, textures[0], this);
+	ballspeed = Vector2D(0.1, -0.1);
+	ball = new Ball(ballpos, 15, 15, ballspeed, textures[(int)balltexture], this);
 	Vector2D paddlepos(400, 500);
 	Vector2D paddlespeed(20, 0);
-	paddle = new Paddle(paddlepos, 100, 20, paddlespeed, textures[2]);
+	paddle = new Paddle(paddlepos, 100, 20, paddlespeed, textures[(int)paddletexture]);
 	Vector2D rightwallpos(775, 0);
-	rightwall = new Wall(20, WIN_HEIGHT, rightwallpos, textures[3]);
+	rightwall = new Wall(20, WIN_HEIGHT, rightwallpos, textures[(int)sidetexture]);
 	Vector2D leftwallpos(5, 0);
-	leftwall = new Wall(20, WIN_HEIGHT, leftwallpos, textures[3]);
+	leftwall = new Wall(20, WIN_HEIGHT, leftwallpos, textures[(int)sidetexture]);
 	Vector2D topwallpos(0, 0);
-	topwall = new Wall(WIN_WIDTH, 20, topwallpos, textures[4]);
-	blocksmap = new BlocksMap(300, 300, textures[1]);
-	blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[1]);
+	topwall = new Wall(WIN_WIDTH, 20, topwallpos, textures[(int)topsidetexture]);
+	blocksmap = new BlocksMap(600, 300, textures[1]);
+	blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
+	cout << "Lifes: " << lifes << endl;
 	
 }
 Game::~Game() {
@@ -51,6 +52,7 @@ Game::~Game() {
 	SDL_Quit();
 }
 
+// bucle principal
 void Game::run() {
 	while(!exit) {
 		// Falta el control de tiempo
@@ -60,6 +62,7 @@ void Game::run() {
 	}
 }
 
+// actualiza el estado del juego
 void Game::update() {
 	ball->update();
 
@@ -74,6 +77,7 @@ void Game::update() {
 		{
 			win = false;
 			currentLevel++;
+			cout << "Next Level" << endl;
 			blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[1]);
 		}
 		ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
@@ -86,6 +90,7 @@ void Game::update() {
 	}
 }
 
+// renderiza todos los objetos
 void Game::render() const {
 	SDL_RenderClear(renderer);
 	paddle->render();
@@ -97,6 +102,7 @@ void Game::render() const {
 	SDL_RenderPresent(renderer);
 }
 
+// maneja los eventos de teclado
 void Game::handleEvents() {
 	SDL_Event event;
 	while(SDL_PollEvent(&event) && !exit) {
@@ -105,6 +111,7 @@ void Game::handleEvents() {
 	}
 }
 
+// detecta si la bola colisiona y actualiza su vector de colision
 bool Game::collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collVector)
 {
 	bool collides = false;
@@ -144,6 +151,8 @@ bool Game::collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collV
 	collVector.normalize();
 	return collides;
 }
+
+// maneja como actuar cuando el jugador pierde una vida
 void Game::death() {
 	if (lifes > 1) {
 		lifes--;
@@ -151,13 +160,13 @@ void Game::death() {
 	}
 	else
 	{
-		cout << "HAS PERDIDO";
+		cout << "GAME OVER";
 		ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
 		SDL_Delay(3000);
 		currentLevel = 0;
 		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[1]);
 		lifes = 3;
 	}
-	cout << lifes << endl;
+	cout << "Lifes: " << lifes << endl;
 }
 

@@ -7,16 +7,19 @@ Vector2D::Vector2D() : x(), y() {}
 
 Vector2D::Vector2D(double x, double y) : x(x), y(y) {}
 
+// devuelve la x
 double Vector2D::getX() const
 {
 	return x;
 }
 
+// devuelve la y
 double Vector2D::getY() const
 {
 	return y;
 }
 
+// normaliza el vector
 void Vector2D::normalize() {
 	double mag = sqrt(pow(x, 2) + pow(y, 2));
 	if (mag > 0.0) {
@@ -25,6 +28,7 @@ void Vector2D::normalize() {
 	}
 }
 
+// suma de vectores
 Vector2D Vector2D::operator+(const Vector2D& v) const {
 	Vector2D r;
 	r.x = this->x + v.x; // El this no es necesario. Se pone para ilustrar su uso
@@ -32,6 +36,7 @@ Vector2D Vector2D::operator+(const Vector2D& v) const {
 	return r;
 }
 
+// resta de vectores
 Vector2D Vector2D::operator-(const Vector2D& v) const {
 	Vector2D r;
 	r.x = this->x - v.x; // El this no es necesario. Se pone para ilustrar su uso
