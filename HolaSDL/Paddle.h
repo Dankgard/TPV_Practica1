@@ -4,23 +4,16 @@
 #include "Vector2D.h"
 #include "Texture.h"
 #include "checkML.h"
+#include "MovingObject.h"
 
 typedef unsigned int uint;
 
-class Paddle {
-private:
-	Vector2D pos;
-	uint w = 0;
-	uint h = 0;
-	Vector2D speed;
-	Texture* texture = nullptr;
+class Paddle: public MovingObject {
 
 public:
 	Paddle();
 	Paddle(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t);
 	~Paddle() {}
-	void render() const;
 	void mov(int speed);
-	SDL_Rect* getDestRect();
-	void Paddle::handleEvents(SDL_Event event);
+	void handleEvents(SDL_Event event);
 };

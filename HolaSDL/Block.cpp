@@ -2,10 +2,10 @@
 #include <iostream>
 #include "checkML.h"
 
-Block::Block() : pos(), w(), h(), texture() {}
+Block::Block() : ArkanoidObject() {}
 
-Block::Block(uint w, uint h, uint color, uint row, uint col, int X, int Y, Texture* t) :
-	w(w), h(h), color(color), row(row), col(col), pos(X,Y), texture(t) {}
+Block::Block(uint w, uint h, uint color, uint row, uint col, Vector2D pos, Texture* t) :
+	ArkanoidObject(pos, w, h, t), color(color), row(row), col(col) {}
 
 // renderiza los bloques
 void Block::render() const

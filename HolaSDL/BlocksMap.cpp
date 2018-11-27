@@ -5,9 +5,9 @@
 #include <fstream>
 #include <string>
 
-BlocksMap::BlocksMap() : blocks(), mapH(), mapW() {}
-BlocksMap::BlocksMap(uint mapW, uint mapH, Texture* texture)
-	: blocks(), mapW(mapW), mapH(mapH), blockTexture(texture) {}
+BlocksMap::BlocksMap() : blocks(), ArkanoidObject() {}
+BlocksMap::BlocksMap(uint w, uint h, Texture* t, Vector2D pos)
+	: blocks(), ArkanoidObject(pos, w, h, t) {}
 
 BlocksMap::~BlocksMap() {
 	if (blocks != nullptr) {
@@ -20,16 +20,6 @@ BlocksMap::~BlocksMap() {
 		delete[] blocks;
 		blocks = nullptr;
 	}
-}
-
-// devuelve el sdl_rect del mapa de bloques
-SDL_Rect* BlocksMap::getDestRect() {
-	SDL_Rect destRect;
-	destRect.x = x;
-	destRect.y = y;
-	destRect.h = mapH;
-	destRect.w = mapW;
-	return &destRect;
 }
 
 // carga el mapa de un fichero de texto
@@ -53,15 +43,16 @@ void BlocksMap::loadMap(string filename, Texture* texture)
 			{
 				for (uint j = 0;j < columns;j++)
 				{
-					int margen = (800 - mapW) / 2;
-					int posX = j * (mapW / columns) + margen;
-					int posY = i * (mapH / rows) + 20;
+					int margen = (800 - w) / 2;
+					int posX = j * (w / columns) + margen;
+					int posY = i * (h / rows) + 20;
 					uint color;
 					input >> color;
-					blocks[j][i] = new Block(mapW / columns, mapH / rows, color, i, j, posX, posY, blockTexture);
+					blocks[j][i] = new Block(w / columns, h / rows, color, i, j, Vector2D(posX,posY), texture);
 				}
-				x = blocks[0][0]->getX();
-				y = blocks[0][0]->getY();
+				uint x = blocks[0][0]->getX();
+				uint y = blocks[0][0]->getY();
+				pos = Vector2D(x, y);
 			}
 		}
 		input.close();
