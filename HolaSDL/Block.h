@@ -18,8 +18,10 @@ public:
 	Block();
 	Block(uint w, uint h, uint color, uint row, uint col, Vector2D pos, Texture* t);
 	~Block() {}
+
 	void update();
 	void handleEvents(SDL_Event event);
+
 	uint getColor() { return color; }
 	void setColor(uint col) { color = col; }
 	void render() const;

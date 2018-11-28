@@ -17,9 +17,12 @@ protected:
 public:
 	ArkanoidObject();
 	ArkanoidObject(Vector2D pos, uint w, uint h, Texture* t);
+
 	void render();
+	void renderFrame(int fila, int col);
 	void loadFromFile();
 	void saveToFile() const;
+
 	SDL_Rect getDestRect();
 	uint getX() { return pos.getX(); }
 	uint getY() { return pos.getY(); }

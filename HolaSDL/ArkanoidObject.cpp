@@ -14,6 +14,12 @@ void ArkanoidObject::render()
 	texture->render(destRect, SDL_FLIP_NONE);
 }
 
+void ArkanoidObject::renderFrame(int row, int col) {
+	SDL_Rect dstRect = getDestRect();
+	
+	texture->renderFrame(dstRect, row, col, 0, SDL_FLIP_NONE);
+}
+
 SDL_Rect ArkanoidObject::getDestRect()
 {
 	SDL_Rect destRect;

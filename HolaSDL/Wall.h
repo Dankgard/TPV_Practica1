@@ -9,9 +9,13 @@
 typedef unsigned int uint;
 
 class Wall: public ArkanoidObject {
+private:
+	string PosWall;
 
 public:
 	Wall();
-	Wall(uint w, uint h, Vector2D pos, Texture* t);
+	Wall(string Position,uint w, uint h, Vector2D pos, Texture* t);
 	~Wall() {}
+
+	bool collides(const SDL_Rect* rect, Vector2D& collVector);
 };

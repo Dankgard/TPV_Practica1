@@ -6,9 +6,7 @@
 #include "SDL_image.h" // Windows
 
 class GameObject {
-
-
-public:
+public:	
 	virtual void render() const = 0;
 	virtual void update() = 0;
 	virtual void handleEvents(SDL_Event event) = 0;
