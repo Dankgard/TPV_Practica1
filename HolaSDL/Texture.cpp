@@ -13,7 +13,6 @@ void Texture::clean() {
 
 // carga una textura
 void Texture::load(string filename, uint nRows, uint nCols) {
-	try {
 		SDL_Surface* tempSurface = IMG_Load(filename.c_str());
 		if (tempSurface == nullptr) throw "Error loading surface from " + filename;
 		clean();
@@ -26,10 +25,6 @@ void Texture::load(string filename, uint nRows, uint nCols) {
 		fw = w / numCols;
 		fh = h / numRows;
 		SDL_FreeSurface(tempSurface);
-	}
-	catch(string s) {
-		throw s;
-	}
 }
 
 // renderiza una textura entera

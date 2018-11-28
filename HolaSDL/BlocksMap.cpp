@@ -25,7 +25,6 @@ BlocksMap::~BlocksMap() {
 // carga el mapa de un fichero de texto
 void BlocksMap::loadMap(string filename, Texture* texture)
 {
-	try {
 		ifstream input;
 		input.open(filename);
 
@@ -56,14 +55,6 @@ void BlocksMap::loadMap(string filename, Texture* texture)
 			}
 		}
 		input.close();
-	}
-	catch (string s)
-	{
-		if (s.empty())
-			throw "Error al leer mapa";
-		else
-			throw s;
-	}
 }
 
 // renderiza el mapa de bloques

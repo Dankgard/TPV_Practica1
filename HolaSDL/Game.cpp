@@ -16,13 +16,7 @@ Game::Game() {
 	// We now create the textures
 	for(uint i = 0; i < NUM_TEXTURES; i++) {
 		textures[i] = new Texture(renderer);
-		try {
-			textures[i]->load("..//images//" + nombre[i], 1, 1);
-		}
-		catch (string s)
-		{
-			throw s;
-		}
+		textures[i]->load("..//images//" + nombre[i], 1, 1);	
 	}
 
 	// We finally create the game objects
@@ -39,14 +33,8 @@ Game::Game() {
 	leftwall = new Wall(20, WIN_HEIGHT, leftwallpos, textures[(int)sidetexture]);
 	Vector2D topwallpos(0, 0);
 	topwall = new Wall(WIN_WIDTH, 20, topwallpos, textures[(int)topsidetexture]);
-	blocksmap = new BlocksMap(600, 300, textures[1]);
-	try {
-		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
-	}
-	catch (string s)
-	{
-		throw s;
-	}
+	blocksmap = new BlocksMap(600, 300, textures[(int)brickstexture]);
+	blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
 	cout << "Lifes: " << lifes << endl;
 	
 }
@@ -90,13 +78,9 @@ void Game::update() {
 			win = false;
 			currentLevel++;
 			cout << "Next Level" << endl;
-			try {
-				blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
-			}
-			catch (string s)
-			{
-				throw s;
-			}
+			delete blocksmap;
+			blocksmap = new BlocksMap(600, 300, textures[(int)brickstexture]);
+			blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
 		}
 		ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
 		SDL_Delay(3000);
@@ -182,13 +166,9 @@ void Game::death() {
 		ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
 		SDL_Delay(3000);
 		currentLevel = 0;
-		try {
-			blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
-		}
-		catch (string s)
-		{
-			throw s;
-		}
+		delete blocksmap;
+		blocksmap = new BlocksMap(600, 300, textures[(int)brickstexture]);
+		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);	
 		lifes = 3;
 	}
 	cout << "Lifes: " << lifes << endl;

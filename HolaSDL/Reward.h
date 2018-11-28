@@ -6,5 +6,9 @@
 
 
 class Reward: public MovingObject {
-
+private:
+	list<ArkanoidObject>::iterator itList;
+public:
+	virtual void action() = 0;
+	void update();
 };
