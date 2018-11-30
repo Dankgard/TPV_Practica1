@@ -1,13 +1,14 @@
 #include "BlocksMap.h"
 #include "Texture.h"
+#include "Game.h"
 #include <iostream>
 #include "checkML.h"
 #include <fstream>
 #include <string>
 
 BlocksMap::BlocksMap() : blocks(), ArkanoidObject() {}
-BlocksMap::BlocksMap(uint w, uint h, Texture* t, Vector2D pos)
-	: blocks(), ArkanoidObject(pos, w, h, t) {}
+BlocksMap::BlocksMap(uint w, uint h, Texture* t)
+	: blocks(), ArkanoidObject(Vector2D(0, 0), w, h, t) {}
 
 BlocksMap::~BlocksMap() {
 	if (blocks != nullptr) {
@@ -84,6 +85,47 @@ uint BlocksMap::blockNumber() const
 	return blockNumber;
 }
 
+
+/*  Devuelve el puntero al bloque del mapa de bloques al que pertenece el punto p.
+	En caso de no haber bloque en ese punto (incluido el caso de que p esté fuera
+	del espacio del mapa) devuelve nullptr.
+*/
+Block* BlocksMap::blockAt(const Vector2D& p) {
+	
+	bool encontrado = false;
+	for (int y=0;y<rows;y++)
+	{
+		for (int x=0;x<columns;x++)
+		{
+			if(blocks[x][y] !=nullptr)
+			if (p.getX() >= blocks[x][y]->getX() && p.getY() >= blocks[x][y]->getY() && p.getX() <= (blocks[x][y]->getX() + blocks[x][y]->getW()) && p.getY() <= (blocks[x][y]->getY() + blocks[x][y]->getH()))
+				return blocks[x][y];		
+		}							
+	}
+	return nullptr;		
+}
+
+// destruye el bloque block
+void BlocksMap::ballHitsBlock(Block* block)
+{
+	block->setColor(0);
+}
+
+bool BlocksMap::collision(const SDL_Rect* rect, Vector2D* ballVel, Vector2D& collVector, Game* game)
+{
+	bool collide = false;
+	if (SDL_HasIntersection(rect, &getDestRect()))
+	{
+		Block* block = collides(rect, ballVel, collVector);
+		if (block != nullptr)
+			ballHitsBlock(block);
+		if (blockNumber() == 0)
+			game->nextLevel();
+		collide = true;
+	}
+	return collide;
+}
+
 /* Dados el rectángulo y vector de dirección de la pelota, devuelve un puntero al
    bloque con el que ésta colisiona (nullptr si no colisiona con nadie) y el
    vector normal perpendicular a la superficie de colisión.
@@ -143,32 +185,4 @@ Block* BlocksMap::collides(const SDL_Rect* ballRect, const Vector2D* ballVel, Ve
 		else if ((b = blockAt(p0)) && b->getColor() != 0) collVector = { 1,0 };
 	}
 	return b;
-}
-
-
-
-
-/*  Devuelve el puntero al bloque del mapa de bloques al que pertenece el punto p.
-	En caso de no haber bloque en ese punto (incluido el caso de que p esté fuera
-	del espacio del mapa) devuelve nullptr.
-*/
-Block* BlocksMap::blockAt(const Vector2D& p) {
-	
-	bool encontrado = false;
-	for (int y=0;y<rows;y++)
-	{
-		for (int x=0;x<columns;x++)
-		{
-			if(blocks[x][y] !=nullptr)
-			if (p.getX() >= blocks[x][y]->getX() && p.getY() >= blocks[x][y]->getY() && p.getX() <= (blocks[x][y]->getX() + blocks[x][y]->getW()) && p.getY() <= (blocks[x][y]->getY() + blocks[x][y]->getH()))
-				return blocks[x][y];		
-		}							
-	}
-	return nullptr;		
-}
-
-// destruye el bloque block
-void BlocksMap::ballHitsBlock(Block* block)
-{
-	block->setColor(0);
 }

@@ -7,6 +7,7 @@
 
 typedef unsigned int uint;
 
+class Game;
 class BlocksMap: public ArkanoidObject {
 private:
 	Block*** blocks = nullptr;
@@ -15,12 +16,15 @@ private:
 
 public:
 	BlocksMap();
-	BlocksMap(uint w, uint h, Texture* t, Vector2D pos);
+	BlocksMap(uint w, uint h, Texture* t);
 	~BlocksMap();
+	void update();
+	void handleEvents(SDL_Event event);
 	void loadMap(string filename, Texture* texture);
 	void render() const;
 	uint blockNumber() const;
-	Block* BlocksMap::collides(const SDL_Rect* ballRect, const Vector2D* ballVel, Vector2D& collVector);
-	Block* BlocksMap::blockAt(const Vector2D& p);
+	Block* collides(const SDL_Rect* ballRect, const Vector2D* ballVel, Vector2D& collVector);
+	Block* blockAt(const Vector2D& p);
+	bool collision(const SDL_Rect* rect, Vector2D* ballVel, Vector2D& collVector, Game* game);
 	void ballHitsBlock(Block* block);
 };

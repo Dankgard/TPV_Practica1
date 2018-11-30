@@ -17,5 +17,8 @@ public:
 	Wall(string Position,uint w, uint h, Vector2D pos, Texture* t);
 	~Wall() {}
 
+	void update();
+	void handleEvents(SDL_Event event);
+
 	bool collides(const SDL_Rect* rect, Vector2D& collVector);
 };

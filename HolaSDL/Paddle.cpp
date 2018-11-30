@@ -32,3 +32,19 @@ void Paddle::handleEvents(SDL_Event event) {
 		}
 	}
 }
+
+bool collides(const SDL_Rect* rect, Vector2D& collVector)
+{
+	bool collide = true;
+	if (SDL_HasIntersection(rect, &getDestRect())) {
+		SDL_Rect* paddlerect = getDestRect();
+		int middleX = paddlerect->x + (paddlerect->w / 2);
+		if (rect->x < middleX)
+			collVector = Vector2D(0.15, 1);
+		else if (rect->x > middleX)
+			collVector = Vector2D(-0.15, 1);
+		else
+			collVector = Vector2D(0, 1);
+		collide = true;
+	}	
+}

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-/*void GameObject::render() {
+void GameObject::render() {
 
 }
 
@@ -12,6 +12,6 @@ void GameObject::update() {
 
 }
 
-void GameObject::handleEvents() {
+void GameObject::handleEvents(SDL_Event event) {
 
-}*/
+}

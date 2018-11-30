@@ -3,6 +3,7 @@
 #include "checkML.h"
 #include "Texture.h"
 
+
 using namespace std;
 
 Game::Game() {
@@ -28,11 +29,11 @@ Game::Game() {
 	Vector2D paddlespeed(20, 0);
 	paddle = new Paddle(paddlepos, 100, 20, paddlespeed, textures[(int)paddletexture]);
 	Vector2D rightwallpos(775, 0);
-	rightwall = new Wall(20, WIN_HEIGHT, rightwallpos, textures[(int)sidetexture]);
+	rightwall = new Wall("right",20, WIN_HEIGHT, rightwallpos, textures[(int)sidetexture]);
 	Vector2D leftwallpos(5, 0);
-	leftwall = new Wall(20, WIN_HEIGHT, leftwallpos, textures[(int)sidetexture]);
+	leftwall = new Wall("left",20, WIN_HEIGHT, leftwallpos, textures[(int)sidetexture]);
 	Vector2D topwallpos(0, 0);
-	topwall = new Wall(WIN_WIDTH, 20, topwallpos, textures[(int)topsidetexture]);
+	topwall = new Wall("top",WIN_WIDTH, 20, topwallpos, textures[(int)topsidetexture]);
 	blocksmap = new BlocksMap(600, 300, textures[(int)brickstexture]);
 	blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
 	cout << "Lifes: " << lifes << endl;
@@ -66,26 +67,6 @@ void Game::run() {
 void Game::update() {
 	ball->update();
 
-	if (win)
-	{
-		if (currentLevel == 2)
-		{
-			cout << "YOU WON THE GAME";
-			exit = true;
-		}
-		else
-		{
-			win = false;
-			currentLevel++;
-			cout << "Next Level" << endl;
-			delete blocksmap;
-			blocksmap = new BlocksMap(600, 300, textures[(int)brickstexture]);
-			blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
-		}
-		ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
-		SDL_Delay(3000);
-	}
-
 	if (exit)
 	{
 		SDL_Quit();
@@ -118,20 +99,14 @@ bool Game::collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collV
 {
 	bool collides = false;
 
-	if (SDL_HasIntersection(rect, rightwall->getDestRect())) {
-		collVector=Vector2D(-1, 0);
+	if (rightwall->collides(rect, collVector))
 		collides = true;
-	}
-	else if (SDL_HasIntersection(rect, leftwall->getDestRect())) {
-		collVector = Vector2D(1, 0);
+	else if (leftwall->collides(rect, collVector))
 		collides = true;
-	}
-	else if (SDL_HasIntersection(rect, topwall->getDestRect())) {
-		collVector = Vector2D(0, -1);
+	else if (topwall->collides(rect, collVector))
 		collides = true;
-	}
-	else if (SDL_HasIntersection(rect, paddle->getDestRect())) {
-		SDL_Rect* paddlerect = paddle->getDestRect();
+	else if (SDL_HasIntersection(rect, &paddle->getDestRect())) {
+		SDL_Rect* paddlerect = &paddle->getDestRect();
 		int middleX = paddlerect->x + (paddlerect->w / 2);
 		if(rect->x < middleX)
 			collVector = Vector2D(0.15, 1);
@@ -141,15 +116,9 @@ bool Game::collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collV
 			collVector = Vector2D(0, 1);
 		collides = true;
 	}
-	else if (SDL_HasIntersection(rect, blocksmap->getDestRect()))
-	{
-		Block* block = blocksmap->collides(rect, speed, collVector);
-		if (block != nullptr)
-			blocksmap->ballHitsBlock(block);
-		if (blocksmap->blockNumber() == 0)
-			win = true;
+	else if (blocksmap->collides(rect,speed,collVector))
 		collides = true;
-	}
+	
 	collVector.normalize();
 	return collides;
 }
@@ -172,5 +141,26 @@ void Game::death() {
 		lifes = 3;
 	}
 	cout << "Lifes: " << lifes << endl;
+}
+
+// avanza al siguiente nivel
+void Game::nextLevel()
+{
+	if (currentLevel == 2)
+	{
+		cout << "YOU WON THE GAME";
+		exit = true;
+	}
+	else
+	{
+		win = false;
+		currentLevel++;
+		cout << "Next Level" << endl;
+		delete blocksmap;
+		blocksmap = new BlocksMap(600, 300, textures[(int)brickstexture]);
+		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
+	}
+	ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
+	SDL_Delay(3000);
 }
 
