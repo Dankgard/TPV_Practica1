@@ -9,13 +9,14 @@
 typedef unsigned int uint;
 
 class Paddle: public MovingObject {
-
+private:
+	int velo = 0;
 public:
 	Paddle();
 	Paddle(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t);
 	~Paddle() {}
+
 	bool collides(const SDL_Rect* rect, Vector2D& collVector);
 	void mov(int speed);
-	void handleEvents(SDL_Event event);
-	void update();
+	void handleEvents(SDL_Event event);	
 };

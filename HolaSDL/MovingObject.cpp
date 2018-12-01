@@ -5,8 +5,10 @@
 MovingObject::MovingObject() :
 	ArkanoidObject(), speed() {}
 
-MovingObject::MovingObject(Vector2D pos, uint w, uint h, Texture* t, Vector2D speed):
-	ArkanoidObject(pos, w, h, t), speed(speed) {}
+MovingObject::MovingObject(Vector2D pos, uint w, uint h, Texture* t, Vector2D spe) :
+	ArkanoidObject(pos, w, h, t) {
+	speed = spe;
+}
 
 Vector2D MovingObject::getSpeed()
 {
