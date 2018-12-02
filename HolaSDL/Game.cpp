@@ -3,10 +3,9 @@
 #include "checkML.h"
 #include "Texture.h"
 
-
 using namespace std;
 
-Game::Game() {
+Game::Game(string filename) {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Leaks
 	// We first initialize SDL
 	SDL_Init (SDL_INIT_EVERYTHING);
@@ -21,23 +20,33 @@ Game::Game() {
 	}
 
 	// We finally create the game objects
-	lifes = 3;
-	ballpos = Vector2D (400, 400);
-	ballspeed = Vector2D(0.02, -0.02);
-	ball = new Ball(ballpos, 15, 15, ballspeed, textures[(int)balltexture], this);
-	Vector2D paddlepos(400, 500);
-	Vector2D paddlespeed(20, 0);
-	paddle = new Paddle(paddlepos, 100, 20, paddlespeed, textures[(int)paddletexture]);
-	Vector2D rightwallpos(775, 0);
-	rightwall = new Wall("right",20, WIN_HEIGHT, rightwallpos, textures[(int)sidetexture]);
-	Vector2D leftwallpos(5, 0);
-	leftwall = new Wall("left",20, WIN_HEIGHT, leftwallpos, textures[(int)sidetexture]);
-	Vector2D topwallpos(0, 0);
-	topwall = new Wall("top",WIN_WIDTH, 20, topwallpos, textures[(int)topsidetexture]);
-	blocksmap = new BlocksMap(600, 300, textures[(int)brickstexture]);
-	blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
-	cout << "Lifes: " << lifes << endl;
-	
+	ifstream file;
+	if (file.fail()) {
+		throw "Error loading " + filename;
+	}
+	else
+	{
+		file.open("..//data//" + filename + ".txt");
+		file >> currentLevel;
+		file >> lifes;
+		blocksmap = new BlocksMap(0, 0, textures[brickstexture]);
+		blocksmap->loadFromFile(file);
+		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
+		paddle = new Paddle(Vector2D(0, 0), 0, 0, Vector2D(0, 0), textures[paddletexture]);
+		paddle->loadFromFile(file);
+		ball = new Ball(Vector2D(0, 0), 0, 0, Vector2D(0, 0), textures[balltexture], this);
+		ball->loadFromFile(file);
+		ballpos = ball->getPos();
+		ballspeed = ball->getSpeed();
+		leftwall = new Wall("left", 0, 0, Vector2D(0, 0), textures[sidetexture]);
+		leftwall->loadFromFile(file);
+		rightwall = new Wall("right", 0, 0, Vector2D(0, 0), textures[sidetexture]);
+		rightwall->loadFromFile(file);
+		topwall = new Wall("top", 0, 0, Vector2D(0, 0), textures[topsidetexture]);
+		topwall->loadFromFile(file);
+		loadList();
+		file.close();
+	}	
 }
 Game::~Game() {
 	delete ball;
@@ -163,4 +172,30 @@ void Game::nextLevel()
 	ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
 	SDL_Delay(3000);
 }
+
+void Game::extraLife()
+{
+	lifes++;
+}
+
+void Game::killObject(uint ind)
+{
+
+}
+
+void Game::loadList()
+{
+	arkanoidObjects.push_back(ball);
+	arkanoidObjects.push_back(blocksmap);
+	arkanoidObjects.push_back(leftwall);
+	arkanoidObjects.push_back(rightwall);
+	arkanoidObjects.push_back(topwall);
+	arkanoidObjects.push_back(paddle);
+}
+
+void Game::saveGame()
+{
+
+}
+
 

@@ -10,7 +10,10 @@ typedef unsigned int uint;
 
 class Paddle: public MovingObject {
 private:
-	int velo = 0;
+	bool powered = false;
+	uint originalTime = 5000;
+	uint powerupTicks = 0;
+	uint oldW;
 public:
 	Paddle();
 	Paddle(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t);
@@ -18,5 +21,10 @@ public:
 
 	bool collides(const SDL_Rect* rect, Vector2D& collVector);
 	void mov(int speed);
-	void handleEvents(SDL_Event event);	
+	virtual void update();
+	void handleEvents(SDL_Event event);
+	void shorterPaddle();
+	void longerPaddle();
+	void originalPaddle();
+	uint getTimeElapsed();
 };

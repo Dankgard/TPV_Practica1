@@ -7,6 +7,17 @@ Block::Block() : ArkanoidObject() {}
 Block::Block(uint w, uint h, uint color, uint row, uint col, Vector2D pos, Texture* t) :
 	ArkanoidObject(pos, w, h, t), color(color), row(row), col(col) {}
 
+
+void Block::update()
+{
+
+}
+
+void Block::handleEvents(SDL_Event event)
+{
+
+}
+
 // renderiza los bloques
 void Block::render() const
 {

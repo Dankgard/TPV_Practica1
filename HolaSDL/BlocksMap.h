@@ -4,6 +4,7 @@
 #include "Block.h"
 #include "checkML.h"
 #include "ArkanoidObject.h"
+#include "Game.h"
 
 typedef unsigned int uint;
 
@@ -18,8 +19,8 @@ public:
 	BlocksMap();
 	BlocksMap(uint w, uint h, Texture* t);
 	~BlocksMap();
-	void update();
-	void handleEvents(SDL_Event event);
+	virtual void update();
+	virtual void handleEvents(SDL_Event event);
 	void loadMap(string filename, Texture* texture);
 	void render() const;
 	uint blockNumber() const;

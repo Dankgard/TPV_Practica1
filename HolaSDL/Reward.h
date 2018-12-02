@@ -7,24 +7,31 @@
 #include "MovingObject.h"
 #include "Paddle.h"
 #include <list>
+#include "Game.h"
 
 class Game;
 class Reward: public MovingObject {
 private:
-	int tipoType;
+	uint type;
+	uint index;
 	Paddle* paddle;
 	Game* game;
 
-	int animationVel = 0;
-	int Frame = 0;
+	int animVel = 0;
+	int animFrame = 0;
+	int ticks = 0;
 
-	list<ArkanoidObject>::iterator itList;
+	bool used = false;
+
+	list<ArkanoidObject*>::iterator itList;
 public:
-	Reward();
-	Reward(Vector2D Pos, int w, int h, int tipo, Vector2D vel, Paddle* p, Texture* t, Game* g, list<ArkanoidObject*>::iterator list);
+	Reward(Vector2D pos, uint w, uint h, uint tipo, Vector2D vel, Paddle* p, Texture* t, Game* g, list<ArkanoidObject*>::iterator list, uint ind);
 	virtual void action() = 0;
 	void update();
 	void render();
 	void handleEvents();
-	void KindHelp();
+	void kindHelp();
+	void deleteReward();
+	bool collides();
+	uint getTimeElapsed();
 };

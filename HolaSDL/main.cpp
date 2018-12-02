@@ -11,7 +11,8 @@ using uint = unsigned int;
 
 
 int main(int argc, char* argv[]){
-	Game game;
+	string filename = "arkanoidObjects";
+	Game game = Game(filename);
 	try {
 		game.run();
 	}

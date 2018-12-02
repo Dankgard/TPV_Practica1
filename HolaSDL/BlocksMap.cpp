@@ -1,6 +1,5 @@
 #include "BlocksMap.h"
 #include "Texture.h"
-#include "Game.h"
 #include <iostream>
 #include "checkML.h"
 #include <fstream>
@@ -9,6 +8,16 @@
 BlocksMap::BlocksMap() : blocks(), ArkanoidObject() {}
 BlocksMap::BlocksMap(uint w, uint h, Texture* t)
 	: blocks(), ArkanoidObject(Vector2D(0, 0), w, h, t) {}
+
+void BlocksMap::update()
+{
+
+}
+
+void BlocksMap::handleEvents(SDL_Event event)
+{
+
+}
 
 BlocksMap::~BlocksMap() {
 	if (blocks != nullptr) {
@@ -43,7 +52,7 @@ void BlocksMap::loadMap(string filename, Texture* texture)
 			{
 				for (uint j = 0;j < columns;j++)
 				{
-					int margen = (800 - w) / 2;
+					int margen = (WIN_WIDTH - w) / 2;
 					int posX = j * (w / columns) + margen;
 					int posY = i * (h / rows) + 20;
 					uint color;

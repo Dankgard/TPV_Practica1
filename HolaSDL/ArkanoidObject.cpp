@@ -1,6 +1,9 @@
 #include <iostream>
 #include "ArkanoidObject.h"
 #include "checkML.h"
+#include <fstream>
+
+using namespace std;
 
 ArkanoidObject::ArkanoidObject() :
 	pos(), w(), h(), texture() {}
@@ -30,13 +33,22 @@ SDL_Rect ArkanoidObject::getDestRect()
 	return destRect;
 }
 
-void ArkanoidObject::loadFromFile()
+void ArkanoidObject::loadFromFile(ifstream& file)
 {
-
+	double x;
+	double y;
+	file >> x;
+	file >> y;
+	pos = Vector2D(x, y);
+	file >> w;
+	file >> h;
 }
 
-void ArkanoidObject::saveToFile() const
+void ArkanoidObject::saveToFile(ofstream& file) const
 {
-
+	file << pos.getX() << " ";
+	file << pos.getY() << " ";
+	file << w << " ";
+	file << h << endl;
 }
 

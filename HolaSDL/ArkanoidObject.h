@@ -6,6 +6,7 @@
 #include "Vector2D.h"
 #include "GameObject.h"
 
+
 class ArkanoidObject: public GameObject {
 protected:
 	Vector2D pos;
@@ -20,13 +21,14 @@ public:
 
 	void render();
 	void renderFrame(int fila, int col);
-	void loadFromFile();
-	void saveToFile() const;
+	void loadFromFile(ifstream& file);
+	void saveToFile(ofstream& file) const;
 
 	SDL_Rect getDestRect();
 	uint getX() { return pos.getX(); }
 	uint getY() { return pos.getY(); }
 	uint getW() { return w; }
 	uint getH() { return h; }
+	Vector2D getPos() { return pos; }
 
 };

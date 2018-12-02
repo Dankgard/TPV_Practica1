@@ -6,7 +6,18 @@
 Paddle::Paddle() : MovingObject() {}
 
 Paddle::Paddle(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t) :
-	MovingObject(pos, w, h, t, Vector2D(0,0)){}
+	MovingObject(pos, w, h, t, Vector2D(speed.getX(),speed.getY())){
+	oldW = w;
+}
+
+
+void Paddle::update()
+{
+	if (powered && getTimeElapsed() >= originalTime)
+	{
+		originalPaddle();
+	}
+}
 
 
 // mueve la pala
@@ -36,7 +47,7 @@ void Paddle::handleEvents(SDL_Event event) {
 
 bool Paddle::collides(const SDL_Rect* rect, Vector2D& collVector)
 {
-	bool collide = true;
+	bool collide = false;
 	if (SDL_HasIntersection(rect, &getDestRect())) {
 		SDL_Rect* paddlerect = &getDestRect();
 		int middleX = paddlerect->x + (paddlerect->w / 2);
@@ -47,5 +58,32 @@ bool Paddle::collides(const SDL_Rect* rect, Vector2D& collVector)
 		else
 			collVector = Vector2D(0, 1);
 		collide = true;
-	}	
+	}
+	return collide;
+}
+
+void Paddle::shorterPaddle()
+{
+	w = w - 20;
+	powered = true;
+	powerupTicks = SDL_GetTicks();
+}
+
+void Paddle::longerPaddle()
+{
+	w = w + 20;
+	powered = true;
+	powerupTicks = SDL_GetTicks();
+}
+
+void Paddle::originalPaddle()
+{
+	w = oldW;
+	powered = false;
+	powerupTicks = 0;
+}
+
+uint Paddle::getTimeElapsed()
+{
+	return SDL_GetTicks() - powerupTicks;
 }
