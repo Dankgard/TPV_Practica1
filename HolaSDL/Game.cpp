@@ -2,6 +2,7 @@
 #include <iostream>
 #include "checkML.h"
 #include "Texture.h"
+#include <time.h> 
 
 using namespace std;
 
@@ -14,10 +15,12 @@ Game::Game(string filename) {
 	if(window == nullptr || renderer == nullptr) throw "Error loading the SDL window or renderer";
 
 	// We now create the textures
-	for(uint i = 0; i < NUM_TEXTURES; i++) {
+	for(uint i = 0; i < NUM_TEXTURES-1; i++) {
 		textures[i] = new Texture(renderer);
 		textures[i]->load("..//images//" + nombre[i], 1, 1);	
 	}
+	textures[rewardtexture] = new Texture(renderer);
+	textures[rewardtexture]->load("..//images//" + nombre[rewardtexture], 10, 8);
 
 	// We finally create the game objects
 	ifstream file;
@@ -26,7 +29,8 @@ Game::Game(string filename) {
 	}
 	else
 	{
-		file.open("..//data//" + filename + ".txt");
+		saveFile = "..//saves//" + filename + ".txt";
+		file.open(saveFile);
 		file >> currentLevel;
 		file >> lifes;
 		blocksmap = new BlocksMap(0, 0, textures[brickstexture]);
@@ -98,7 +102,11 @@ void Game::render() const {
 void Game::handleEvents() {
 	SDL_Event event;
 	while(SDL_PollEvent(&event) && !exit) {
-		if(event.type == SDL_QUIT) exit = true;
+		if (event.type == SDL_QUIT)
+		{
+			saveGame();
+			exit = true;
+		}
 		paddle->handleEvents(event);
 	}
 }
@@ -176,17 +184,31 @@ void Game::killObject(uint ind)
 
 void Game::loadList()
 {
-	arkanoidObjects.push_back(ball);
 	arkanoidObjects.push_back(blocksmap);
+	arkanoidObjects.push_back(paddle);
+	arkanoidObjects.push_back(ball);
 	arkanoidObjects.push_back(leftwall);
 	arkanoidObjects.push_back(rightwall);
 	arkanoidObjects.push_back(topwall);
-	arkanoidObjects.push_back(paddle);
 }
 
 void Game::saveGame()
 {
+	ofstream file(saveFile, ofstream::trunc);
+	file << currentLevel << endl;
+	file << lifes << endl;
+	for (auto arkanoidObject : arkanoidObjects)
+		arkanoidObject->saveToFile(file);
+	file.close();
+}
 
+void Game::spawnReward(Vector2D pos)
+{
+	srand(time(NULL));
+	uint type = rand() % 4;
+	list<ArkanoidObject*>::iterator it = arkanoidObjects.end();
+	Reward* powerUp = new Reward(pos, 50, 20, powerUpType[type], Vector2D(0, 2), paddle, textures[rewardtexture], this, it);
+	arkanoidObjects.push_back(powerUp);
 }
 
 

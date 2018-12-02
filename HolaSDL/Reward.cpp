@@ -3,14 +3,13 @@
 #include "Reward.h"
 #include "Game.h"
 
-Reward::Reward(Vector2D pos, uint w, uint h, uint tipo, Vector2D vel, Paddle* p, Texture* t, Game* g, list<ArkanoidObject*>::iterator list, uint ind):
+Reward::Reward(Vector2D pos, uint w, uint h, uint tipo, Vector2D vel, Paddle* p, Texture* t, Game* g, list<ArkanoidObject*>::iterator it):
 	MovingObject(pos,w,h,t,vel)
 {
 	type = tipo;
 	paddle = p;
 	game = g;
-	itList = list;
-	index = ind;
+	itList = it;
 }
 
 void Reward::update()
@@ -43,17 +42,17 @@ void Reward::kindHelp()
 {
 	switch (type)
 	{
-	case 1:
-		game->extraLife();
-		break;
-	case 2:
+	case 0:
 		game->nextLevel();
+		break;
+	case 1:
+		paddle->longerPaddle();
 		break;
 	case 3:
 		paddle->shorterPaddle();
 		break;
 	case 4:
-		paddle->longerPaddle();
+		game->extraLife();
 		break;
 	}
 	game->killObject(index);
@@ -71,7 +70,7 @@ void Reward::render()
 	renderFrame(type, animFrame);
 }
 
-void Reward::handleEvents()
+void Reward::handleEvents(SDL_Event event)
 {
 
 }

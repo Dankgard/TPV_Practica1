@@ -5,6 +5,7 @@
 #include "checkML.h"
 #include <fstream>
 #include <string>
+#include <time.h>
 
 BlocksMap::BlocksMap() : blocks(), ArkanoidObject() {}
 BlocksMap::BlocksMap(uint w, uint h, Texture* t)
@@ -119,6 +120,7 @@ Block* BlocksMap::blockAt(const Vector2D& p) {
 void BlocksMap::ballHitsBlock(Block* block)
 {
 	block->setColor(0);
+	
 }
 
 bool BlocksMap::collision(const SDL_Rect* rect, const Vector2D* ballVel, Vector2D& collVector, Game* game)
@@ -128,7 +130,13 @@ bool BlocksMap::collision(const SDL_Rect* rect, const Vector2D* ballVel, Vector2
 	{
 		Block* block = collides(rect, ballVel, collVector);
 		if (block != nullptr)
+		{
 			ballHitsBlock(block);
+			srand(time(NULL));
+			if (rand() % 7 == 0) {
+				game->spawnReward(Vector2D(block->getX(), block->getY()));
+			}
+		}
 		if (blockNumber() == 0)
 			game->nextLevel();
 		collide = true;

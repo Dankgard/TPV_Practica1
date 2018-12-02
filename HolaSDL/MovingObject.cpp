@@ -23,19 +23,17 @@ void MovingObject::setSpeed(Vector2D newSpeed)
 
 void MovingObject::loadFromFile(ifstream& file)
 {
-	ArkanoidObject::loadFromFile(file);
-
 	double speedX;
 	double speedY;
 	file >> speedX;
 	file >> speedY;
 	speed = Vector2D(speedX, speedY);
+	ArkanoidObject::loadFromFile(file);
 }
 
 void MovingObject::saveToFile(ofstream& file)
 {
+	file << speed.getX() << " ";
+	file << speed.getY() << " ";
 	ArkanoidObject::saveToFile(file);
-
-	file << speed.getX() << endl;
-	file << speed.getY() << endl;
 }

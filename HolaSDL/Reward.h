@@ -24,11 +24,11 @@ private:
 
 	list<ArkanoidObject*>::iterator itList;
 public:
-	Reward(Vector2D pos, uint w, uint h, uint tipo, Vector2D vel, Paddle* p, Texture* t, Game* g, list<ArkanoidObject*>::iterator list, uint ind);
-	virtual void action() = 0;
+	Reward(Vector2D pos, uint w, uint h, uint tipo, Vector2D vel, Paddle* p, Texture* t, Game* g, list<ArkanoidObject*>::iterator it);
+	//virtual void action() = 0;
 	void update();
 	void render();
-	void handleEvents();
+	void handleEvents(SDL_Event event);
 	void kindHelp();
 	void deleteReward();
 	bool collides();
