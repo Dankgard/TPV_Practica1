@@ -21,10 +21,10 @@ public:
 	BlocksMap();
 	BlocksMap(uint w, uint h, Texture* t);
 	~BlocksMap();
-	virtual void update();
+	void update();
 	virtual void handleEvents(SDL_Event event);
 	void loadMap(string filename, Texture* texture);
-	void render() const;
+	void render();
 	uint blockNumber() const;
 	Block* collides(const SDL_Rect* ballRect, const Vector2D* ballVel, Vector2D& collVector);
 	Block* blockAt(const Vector2D& p);

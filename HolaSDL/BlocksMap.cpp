@@ -70,7 +70,7 @@ void BlocksMap::loadMap(string filename, Texture* texture)
 }
 
 // renderiza el mapa de bloques
-void BlocksMap::render() const
+void BlocksMap::render()
 {
 	for (uint i = 0;i < rows;i++)
 	{

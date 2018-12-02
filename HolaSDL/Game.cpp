@@ -79,6 +79,7 @@ void Game::run() {
 // actualiza el estado del juego
 void Game::update() {
 	ball->update();
+	paddle->update();
 
 	if (exit)
 	{
@@ -88,13 +89,21 @@ void Game::update() {
 
 // renderiza todos los objetos
 void Game::render() const {
+
 	SDL_RenderClear(renderer);
-	paddle->render();
-	ball->render();
-	rightwall->render();
-	leftwall->render();
-	topwall->render();
-	blocksmap->render();
+	/*for (list<ArkanoidObject*>::iterator it = arkanoidObjects.begin(); it != arkanoidObjects.end(); ++it) {
+		(*it)->render();
+	}*/
+	for (auto arkanoidObject : arkanoidObjects)
+	{
+		arkanoidObject->render();
+	}
+	//paddle->render();
+	//ball->render();
+	//rightwall->render();
+	//leftwall->render();
+	//topwall->render();
+	//blocksmap->render();
 	SDL_RenderPresent(renderer);
 }
 
