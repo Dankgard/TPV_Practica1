@@ -42,8 +42,8 @@ private:
 	Vector2D ballpos;
 	Vector2D ballspeed;
 	Texture* textures[NUM_TEXTURES];
-	string nombre[NUM_TEXTURES] = { "ball.png","bricks.png","paddle.png","side.png","topside.png", "rewards.png" };
-	enum TextureType { balltexture, brickstexture, paddletexture, sidetexture, topsidetexture, rewardtexture };
+	string nombre[NUM_TEXTURES] = { "ball.png","paddle.png","side.png","topside.png", "bricks.png","rewards.png" };
+	enum TextureType { balltexture,  paddletexture, sidetexture, topsidetexture, brickstexture, rewardtexture };
 	uint currentLevel = 0;
 	string levels[3] = { "level01.ark", "level02.ark", "level03.ark" };
 	uint powerUpType[4] = { 0, 1, 3, 4 };

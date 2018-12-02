@@ -7,7 +7,6 @@ Paddle::Paddle() : MovingObject() {}
 
 Paddle::Paddle(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t) :
 	MovingObject(pos, w, h, t, Vector2D(speed.getX(),speed.getY())){
-	oldW = w;
 }
 
 
@@ -86,4 +85,17 @@ void Paddle::originalPaddle()
 uint Paddle::getTimeElapsed()
 {
 	return SDL_GetTicks() - powerupTicks;
+}
+
+void Paddle::saveToFile(ofstream& file)
+{
+	MovingObject::saveToFile(file);
+	w = oldW;
+}
+
+
+void Paddle::loadFromFile(ifstream& file)
+{
+	MovingObject::loadFromFile(file);
+	oldW = w;
 }

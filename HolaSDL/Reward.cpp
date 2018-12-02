@@ -42,17 +42,21 @@ void Reward::kindHelp()
 {
 	switch (type)
 	{
-	case 0:
+	case 0: // L
 		game->nextLevel();
+		cout << "next level" << endl;
 		break;
-	case 1:
+	case 1: // E
 		paddle->longerPaddle();
+		cout << "longer paddle" << endl;
 		break;
-	case 3:
+	case 3: // S
 		paddle->shorterPaddle();
+		cout << "shorter paddle" << endl;
 		break;
-	case 4:
+	case 4: // R
 		game->extraLife();
+		cout << "extra life" << endl;
 		break;
 	}
 	game->killObject(index);

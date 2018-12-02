@@ -129,7 +129,7 @@ bool BlocksMap::collision(const SDL_Rect* rect, const Vector2D* ballVel, Vector2
 	if (SDL_HasIntersection(rect, &getDestRect()))
 	{
 		Block* block = collides(rect, ballVel, collVector);
-		if (block != nullptr)
+		if (block != nullptr && block->getColor() != 0)
 		{
 			ballHitsBlock(block);
 			srand(time(NULL));

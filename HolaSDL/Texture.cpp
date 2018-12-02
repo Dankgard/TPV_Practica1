@@ -38,12 +38,9 @@ void Texture::render(const SDL_Rect& destRect, SDL_RendererFlip flip) const {
 // renderiza una parte de una textura
 void Texture::renderFrame(const SDL_Rect& destRect, int row, int col, int angle, SDL_RendererFlip flip) const {
 	SDL_Rect srcRect;
-	int textW, textH;
-	SDL_QueryTexture(texture, nullptr, nullptr, &textW, &textH);
-	srcRect.x = srcRect.y = 0;
-	srcRect.w = textW / 3;
-	srcRect.h = textH / 2;
-	srcRect.x = (textW / 3) * col;
-	srcRect.y = (textH / 2) * row;
+	srcRect.x = fw * col;
+	srcRect.y = fh * row;
+	srcRect.w = fw;
+	srcRect.h = fh;
 	SDL_RenderCopyEx(renderer, texture, &srcRect, &destRect, angle, 0, flip);
 }

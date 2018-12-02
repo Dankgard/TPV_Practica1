@@ -15,12 +15,12 @@ Game::Game(string filename) {
 	if(window == nullptr || renderer == nullptr) throw "Error loading the SDL window or renderer";
 
 	// We now create the textures
-	for(uint i = 0; i < NUM_TEXTURES-1; i++) {
+	for(uint i = 0; i < NUM_TEXTURES-2; i++) {
 		textures[i] = new Texture(renderer);
 		textures[i]->load("..//images//" + nombre[i], 1, 1);	
 	}
-	textures[rewardtexture] = new Texture(renderer);
-	textures[rewardtexture]->load("..//images//" + nombre[rewardtexture], 10, 8);
+	textures[brickstexture] = new Texture(renderer, "..//images//" + nombre[brickstexture], 2, 3);
+	textures[rewardtexture] = new Texture(renderer, "..//images//" + nombre[rewardtexture], 10, 8);
 
 	// We finally create the game objects
 	ifstream file;
@@ -53,12 +53,14 @@ Game::Game(string filename) {
 	}	
 }
 Game::~Game() {
+	for (auto arkanoidObject : arkanoidObjects)
+		delete arkanoidObject;
+	/*delete paddle;
 	delete ball;
 	delete blocksmap;
-	delete rightwall;
 	delete leftwall;
-	delete topwall;
-	delete paddle;
+	delete rightwall;
+	delete topwall;*/
 	for(uint i = 0; i < NUM_TEXTURES; i++)
 		delete textures[i];
 	SDL_DestroyRenderer(renderer);
@@ -78,8 +80,11 @@ void Game::run() {
 
 // actualiza el estado del juego
 void Game::update() {
-	ball->update();
-	paddle->update();
+	for (auto arkanoidObject : arkanoidObjects)
+	{
+		arkanoidObject->update();
+	}
+
 
 	if (exit)
 	{
@@ -91,19 +96,10 @@ void Game::update() {
 void Game::render() const {
 
 	SDL_RenderClear(renderer);
-	/*for (list<ArkanoidObject*>::iterator it = arkanoidObjects.begin(); it != arkanoidObjects.end(); ++it) {
-		(*it)->render();
-	}*/
 	for (auto arkanoidObject : arkanoidObjects)
 	{
 		arkanoidObject->render();
 	}
-	//paddle->render();
-	//ball->render();
-	//rightwall->render();
-	//leftwall->render();
-	//topwall->render();
-	//blocksmap->render();
 	SDL_RenderPresent(renderer);
 }
 
@@ -153,9 +149,11 @@ void Game::death() {
 		ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
 		SDL_Delay(3000);
 		currentLevel = 0;
+		uint blocksmapW = blocksmap->getW();
+		uint blocksmapH = blocksmap->getH();
 		delete blocksmap;
-		blocksmap = new BlocksMap(600, 300, textures[(int)brickstexture]);
-		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);	
+		blocksmap = new BlocksMap(blocksmapH, blocksmapH, textures[brickstexture]);
+		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
 		lifes = 3;
 	}
 	cout << "Lifes: " << lifes << endl;
@@ -174,8 +172,10 @@ void Game::nextLevel()
 		win = false;
 		currentLevel++;
 		cout << "Next Level" << endl;
+		uint blocksmapW = blocksmap->getW();
+		uint blocksmapH = blocksmap->getH();
 		delete blocksmap;
-		blocksmap = new BlocksMap(600, 300, textures[(int)brickstexture]);
+		blocksmap = new BlocksMap(blocksmapH, blocksmapH, textures[brickstexture]);
 		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
 	}
 	ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
@@ -218,7 +218,7 @@ void Game::spawnReward(Vector2D pos)
 	srand(time(NULL));
 	uint type = rand() % 4;
 	list<ArkanoidObject*>::iterator it = arkanoidObjects.end();
-	Reward* powerUp = new Reward(pos, 50, 20, powerUpType[type], Vector2D(0, 2), paddle, textures[rewardtexture], this, it);
+	Reward* powerUp = new Reward(pos, 50, 20, powerUpType[type], Vector2D(0, 0.02), paddle, textures[rewardtexture], this, it);
 	arkanoidObjects.push_back(powerUp);
 }
 
