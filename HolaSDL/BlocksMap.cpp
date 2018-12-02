@@ -1,6 +1,7 @@
 #include "BlocksMap.h"
 #include "Texture.h"
 #include <iostream>
+#include "Game.h"
 #include "checkML.h"
 #include <fstream>
 #include <string>
@@ -120,7 +121,7 @@ void BlocksMap::ballHitsBlock(Block* block)
 	block->setColor(0);
 }
 
-bool BlocksMap::collision(const SDL_Rect* rect, Vector2D* ballVel, Vector2D& collVector, Game* game)
+bool BlocksMap::collision(const SDL_Rect* rect, const Vector2D* ballVel, Vector2D& collVector, Game* game)
 {
 	bool collide = false;
 	if (SDL_HasIntersection(rect, &getDestRect()))

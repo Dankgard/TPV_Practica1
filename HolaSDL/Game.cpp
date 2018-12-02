@@ -114,18 +114,9 @@ bool Game::collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collV
 		collides = true;
 	else if (topwall->collides(rect, collVector))
 		collides = true;
-	else if (SDL_HasIntersection(rect, &paddle->getDestRect())) {
-		SDL_Rect* paddlerect = &paddle->getDestRect();
-		int middleX = paddlerect->x + (paddlerect->w / 2);
-		if(rect->x < middleX)
-			collVector = Vector2D(0.15, 1);
-		else if(rect->x > middleX)
-			collVector = Vector2D(-0.15, 1);
-		else
-			collVector = Vector2D(0, 1);
-		collides = true;
-	}
-	else if (blocksmap->collides(rect,speed,collVector))
+	else if (paddle->collides(rect, collVector))
+		collides = true;	
+	else if (blocksmap->collision(rect,speed,collVector,this))
 		collides = true;
 	
 	collVector.normalize();

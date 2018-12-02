@@ -24,17 +24,20 @@ class Game {
 private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
+
 	Ball* ball = nullptr;
-	BlocksMap* blocksmap = nullptr;
+	BlocksMap * blocksmap = nullptr;
 	Wall* rightwall = nullptr;
 	Wall* leftwall = nullptr;
 	Wall* topwall = nullptr;
 	Paddle* paddle = nullptr;
 	Reward* reward = nullptr;
+
 	bool exit = false;
 	bool win = false;
 	bool gameOver = false;
 	int lifes = 0;
+
 	Vector2D ballpos;
 	Vector2D ballspeed;
 	Texture* textures[NUM_TEXTURES];

@@ -4,14 +4,14 @@
 #include "Block.h"
 #include "checkML.h"
 #include "ArkanoidObject.h"
-#include "Game.h"
+//#include "Game.h"
 
 typedef unsigned int uint;
 
 class Game;
 class BlocksMap: public ArkanoidObject {
 private:
-	Block*** blocks = nullptr;
+	Block*** blocks;
 	uint rows;
 	uint columns;
 
@@ -26,6 +26,7 @@ public:
 	uint blockNumber() const;
 	Block* collides(const SDL_Rect* ballRect, const Vector2D* ballVel, Vector2D& collVector);
 	Block* blockAt(const Vector2D& p);
-	bool collision(const SDL_Rect* rect, Vector2D* ballVel, Vector2D& collVector, Game* game);
+	bool collision(const SDL_Rect* rect, const Vector2D* ballVel, Vector2D& collVector, Game* game);
 	void ballHitsBlock(Block* block);
 };
+

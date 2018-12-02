@@ -7,7 +7,6 @@
 #include "MovingObject.h"
 #include "Paddle.h"
 #include <list>
-#include "Game.h"
 
 class Game;
 class Reward: public MovingObject {

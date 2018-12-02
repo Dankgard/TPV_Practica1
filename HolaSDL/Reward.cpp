@@ -1,6 +1,7 @@
 #include <iostream>
 #include "checkML.h"
 #include "Reward.h"
+#include "Game.h"
 
 Reward::Reward(Vector2D pos, uint w, uint h, uint tipo, Vector2D vel, Paddle* p, Texture* t, Game* g, list<ArkanoidObject*>::iterator list, uint ind):
 	MovingObject(pos,w,h,t,vel)
