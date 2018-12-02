@@ -133,7 +133,8 @@ bool BlocksMap::collision(const SDL_Rect* rect, const Vector2D* ballVel, Vector2
 		{
 			ballHitsBlock(block);
 			srand(time(NULL));
-			if (rand() % 7 == 0) {
+			uint num = rand() % 100;
+			if (num < rewardSpawnProb) {
 				game->spawnReward(Vector2D(block->getX(), block->getY()));
 			}
 		}

@@ -37,6 +37,7 @@ private:
 	bool win = false;
 	bool gameOver = false;
 	int lifes = 0;
+	bool savedGame = false;
 
 	Vector2D ballpos;
 	Vector2D ballspeed;

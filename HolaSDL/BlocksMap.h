@@ -14,6 +14,8 @@ private:
 	Block*** blocks;
 	uint rows;
 	uint columns;
+	// probabilidad sobre 100
+	uint rewardSpawnProb = 50;
 
 public:
 	BlocksMap();

@@ -104,7 +104,8 @@ void Game::handleEvents() {
 	while(SDL_PollEvent(&event) && !exit) {
 		if (event.type == SDL_QUIT)
 		{
-			saveGame();
+			if(!savedGame)
+				saveGame();
 			exit = true;
 		}
 		paddle->handleEvents(event);
@@ -200,6 +201,7 @@ void Game::saveGame()
 	for (auto arkanoidObject : arkanoidObjects)
 		arkanoidObject->saveToFile(file);
 	file.close();
+	savedGame = true;
 }
 
 void Game::spawnReward(Vector2D pos)
