@@ -3,6 +3,7 @@
 #include "SDL_image.h"
 #include "checkML.h"
 #include <iostream>
+#include "Menu.h"
 #include "Game.h"
 
 using namespace std;
@@ -11,7 +12,7 @@ using uint = unsigned int;
 
 
 int main(int argc, char* argv[]){
-	string filename = "save01";
+	/*string filename = "save01";
 	Game game = Game();
 	try {
 		game.run();
@@ -23,5 +24,8 @@ int main(int argc, char* argv[]){
 		else
 			cout << s;
 	}
+	return 0;*/
+	Menu menu = Menu();
+	menu.run();
 	return 0;
 }

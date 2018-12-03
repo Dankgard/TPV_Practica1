@@ -12,19 +12,23 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	
 	Texture* Title;
+	SDL_Rect titlerect;
 	
 	Texture* Play;
+	SDL_Rect PlayRect;
 	
 	Texture* Load;
+	SDL_Rect LoadRect;
 	
 	Texture* exitB;
+	SDL_Rect exitRect;
 
 	bool exit = false;
 public:
 	Menu();
 	~Menu();
 	void run();
-	void update();
+	//void update();
 	void render();
 	void handleEvents();
 };

@@ -29,7 +29,7 @@ Game::Game() {
 	blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[brickstexture]);
 	paddle = new Paddle(Vector2D(400, 500), 100, 20, Vector2D(20, 0), textures[paddletexture]);
 	ballpos = Vector2D(400, 400);
-	ballspeed = Vector2D(0.07, -0.07);
+	ballspeed = Vector2D(0.04, -0.04);
 	ball = new Ball(ballpos, 15, 15, ballspeed, textures[balltexture], this);
 	leftwall = new Wall("left", 20, WIN_HEIGHT, Vector2D(5, 0), textures[sidetexture]);
 	rightwall = new Wall("right", 20, WIN_HEIGHT, Vector2D(775, 0), textures[sidetexture]);	
