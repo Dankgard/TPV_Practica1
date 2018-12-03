@@ -12,7 +12,7 @@ using uint = unsigned int;
 
 int main(int argc, char* argv[]){
 	string filename = "save01";
-	Game game = Game(filename);
+	Game game = Game();
 	try {
 		game.run();
 	}

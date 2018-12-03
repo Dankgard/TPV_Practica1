@@ -26,6 +26,7 @@ public:
 	void shorterPaddle();
 	void longerPaddle();
 	void originalPaddle();
+	void Wsave();
 	uint getTimeElapsed();
 	void saveToFile(ofstream& file);
 	void loadFromFile(ifstream& file);

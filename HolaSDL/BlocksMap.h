@@ -4,7 +4,6 @@
 #include "Block.h"
 #include "checkML.h"
 #include "ArkanoidObject.h"
-//#include "Game.h"
 
 typedef unsigned int uint;
 

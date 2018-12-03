@@ -6,6 +6,38 @@
 
 using namespace std;
 
+Game::Game() {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Leaks
+	// We first initialize SDL
+	SDL_Init(SDL_INIT_EVERYTHING);
+	window = SDL_CreateWindow("Arkanoid", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	if (window == nullptr || renderer == nullptr) throw "Error loading the SDL window or renderer";
+
+	// We now create the textures
+	for (uint i = 0; i < NUM_TEXTURES - 2; i++) {
+		textures[i] = new Texture(renderer);
+		textures[i]->load("..//images//" + nombre[i], 1, 1);
+	}
+	textures[brickstexture] = new Texture(renderer, "..//images//" + nombre[brickstexture], 2, 3);
+	textures[rewardtexture] = new Texture(renderer, "..//images//" + nombre[rewardtexture], 10, 8);
+
+	currentLevel = 0;
+	lifes = 3;
+
+	blocksmap = new BlocksMap(600, 300, textures[brickstexture]);
+	blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[brickstexture]);
+	paddle = new Paddle(Vector2D(400, 500), 100, 20, Vector2D(20, 0), textures[paddletexture]);
+	ballpos = Vector2D(400, 400);
+	ballspeed = Vector2D(0.07, -0.07);
+	ball = new Ball(ballpos, 15, 15, ballspeed, textures[balltexture], this);
+	leftwall = new Wall("left", 20, WIN_HEIGHT, Vector2D(5, 0), textures[sidetexture]);
+	rightwall = new Wall("right", 20, WIN_HEIGHT, Vector2D(775, 0), textures[sidetexture]);	
+	topwall = new Wall("top", WIN_WIDTH, 20, Vector2D(0, 0), textures[topsidetexture]);	
+	loadList();
+}
+
+
 Game::Game(string filename) {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Leaks
 	// We first initialize SDL
@@ -35,7 +67,7 @@ Game::Game(string filename) {
 		file >> lifes;
 		blocksmap = new BlocksMap(0, 0, textures[brickstexture]);
 		blocksmap->loadFromFile(file);
-		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
+		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[brickstexture]);
 		paddle = new Paddle(Vector2D(0, 0), 0, 0, Vector2D(0, 0), textures[paddletexture]);
 		paddle->loadFromFile(file);
 		ball = new Ball(Vector2D(0, 0), 0, 0, Vector2D(0, 0), textures[balltexture], this);
@@ -70,8 +102,7 @@ Game::~Game() {
 
 // bucle principal
 void Game::run() {
-	while(!exit) {
-		// Falta el control de tiempo
+	while(!exit) {		
 		handleEvents();
 		update();
 		render();
@@ -93,13 +124,18 @@ void Game::update() {
 }
 
 // renderiza todos los objetos
-void Game::render() const {
+void Game::render(){
 
 	SDL_RenderClear(renderer);
 	for (auto arkanoidObject : arkanoidObjects)
-	{
-		arkanoidObject->render();
-	}
+	{		
+		if(currentLevel!=0)
+			arkanoidObject->render();
+		else
+		{
+			arkanoidObject->render();
+		}
+	}	
 	SDL_RenderPresent(renderer);
 }
 
@@ -151,9 +187,11 @@ void Game::death() {
 		currentLevel = 0;
 		uint blocksmapW = blocksmap->getW();
 		uint blocksmapH = blocksmap->getH();
+		arkanoidObjects.remove(blocksmap);
 		delete blocksmap;
-		blocksmap = new BlocksMap(blocksmapH, blocksmapH, textures[brickstexture]);
+		blocksmap = new BlocksMap(blocksmapW, blocksmapH, textures[brickstexture]);
 		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
+		arkanoidObjects.push_front(blocksmap);
 		lifes = 3;
 	}
 	cout << "Lifes: " << lifes << endl;
@@ -174,9 +212,11 @@ void Game::nextLevel()
 		cout << "Next Level" << endl;
 		uint blocksmapW = blocksmap->getW();
 		uint blocksmapH = blocksmap->getH();
+		arkanoidObjects.remove(blocksmap);
 		delete blocksmap;
-		blocksmap = new BlocksMap(blocksmapH, blocksmapH, textures[brickstexture]);
-		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);
+		blocksmap = new BlocksMap(blocksmapW, blocksmapH, textures[brickstexture]);
+		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[(int)brickstexture]);		
+		arkanoidObjects.push_front(blocksmap);
 	}
 	ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
 	SDL_Delay(3000);

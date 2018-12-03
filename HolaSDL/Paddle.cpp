@@ -60,9 +60,13 @@ bool Paddle::collides(const SDL_Rect* rect, Vector2D& collVector)
 	}
 	return collide;
 }
+void Paddle::Wsave() {
+	oldW = w;
+}
 
 void Paddle::shorterPaddle()
 {
+	Wsave();
 	w = w - 20;
 	powered = true;
 	powerupTicks = SDL_GetTicks();
@@ -70,6 +74,7 @@ void Paddle::shorterPaddle()
 
 void Paddle::longerPaddle()
 {
+	Wsave();
 	w = w + 20;
 	powered = true;
 	powerupTicks = SDL_GetTicks();
