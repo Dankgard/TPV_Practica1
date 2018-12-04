@@ -1,0 +1,5 @@
+Miembros:
+-Gonzalo Pérez Martín
+-Daniel García-Villarrubia López-Menchero
+
+No hemos conseguido hacer las excepciones, y borrar los premios al cogerlos. No hemos hecho nada optativo.
