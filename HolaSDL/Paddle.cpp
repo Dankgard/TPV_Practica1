@@ -67,7 +67,7 @@ void Paddle::Wsave() {
 void Paddle::shorterPaddle()
 {
 	Wsave();
-	w = w - 20;
+	w = oldW - 40;
 	powered = true;
 	powerupTicks = SDL_GetTicks();
 }
@@ -75,7 +75,7 @@ void Paddle::shorterPaddle()
 void Paddle::longerPaddle()
 {
 	Wsave();
-	w = w + 20;
+	w = oldW + 40;
 	powered = true;
 	powerupTicks = SDL_GetTicks();
 }
