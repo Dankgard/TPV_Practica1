@@ -15,12 +15,12 @@ Reward::Reward(Vector2D pos, uint w, uint h, uint tipo, Vector2D vel, Paddle* p,
 
 void Reward::update()
 {
+	collides();
+
 	if (getY() > WIN_HEIGHT)
 		deleteReward();
 	else
 		pos = pos + speed;
-
-	collides();
 }
 
 bool Reward::collides()
@@ -36,7 +36,7 @@ bool Reward::collides()
 
 void Reward::deleteReward()
 {
-	game->killObject(index);
+	game->killObject(this);
 }
 
 void Reward::kindHelp()
@@ -56,7 +56,7 @@ void Reward::kindHelp()
 		game->extraLife();		
 		break;
 	}
-	game->killObject(index);
+	game->killObject(this);
 }
 
 void Reward::render()

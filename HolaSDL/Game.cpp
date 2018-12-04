@@ -88,7 +88,7 @@ Game::Game(string filename) {
 }
 Game::~Game() {
 	/*for (auto arkanoidObject : arkanoidObjects)
-		delete arkanoidObject;*/
+		delete arkanoidObject;*/	
 	delete paddle;
 	delete ball;
 	delete blocksmap;
@@ -113,10 +113,14 @@ void Game::run() {
 
 // actualiza el estado del juego
 void Game::update() {
-	for (auto arkanoidObject : arkanoidObjects)
+	/*for (auto arkanoidObject : arkanoidObjects)
 	{
 		arkanoidObject->update();
+	}*/
+	for (list<ArkanoidObject*>::iterator it = arkanoidObjects.begin(); it != arkanoidObjects.end();) {
+		((*it++))->update();
 	}
+
 	if (exit)
 	{
 		SDL_Quit();
@@ -157,7 +161,12 @@ void Game::handleEvents() {
 			case SDLK_s:
 				saveGame();
 				break;
+
+			case SDLK_ESCAPE:
+				exit = true;
+				break;
 			}
+			
 		}
 		paddle->handleEvents(event);
 	}
@@ -238,7 +247,7 @@ void Game::nextLevel()
 		arkanoidObjects.push_front(blocksmap);
 	}
 	ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
-	SDL_Delay(3000);
+	SDL_Delay(500);
 }
 
 void Game::extraLife()
@@ -247,9 +256,15 @@ void Game::extraLife()
 	cout << "Lifes: " << lifes << endl;
 }
 
-void Game::killObject(uint ind)
+void Game::killObject(Reward* r)
 {
-
+	for (list<ArkanoidObject*>::iterator list = arkanoidObjects.begin(); list != arkanoidObjects.end(); ++list) {
+		if ((*list) == r) {
+			delete r;
+			arkanoidObjects.erase(list);
+			break;
+		}
+	}
 }
 
 void Game::loadList()

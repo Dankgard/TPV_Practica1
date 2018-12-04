@@ -63,7 +63,7 @@ public:
 	void death();
 	void nextLevel();
 	void extraLife();
-	void killObject(uint ind);
+	void killObject(Reward* r);
 	void loadList();
 	void saveGame();
 	void spawnReward(Vector2D pos);
