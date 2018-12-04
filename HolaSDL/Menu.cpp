@@ -100,8 +100,7 @@ void Menu::handleEvents() {
 			{
 				string loadCode;
 				cout << "Introduzca la partida guardada: " << loadCode;
-				cin >> loadCode;
-				loadCode = "..\\savedGames\\" + loadCode + ".txt";
+				cin >> loadCode;				
 				Game game = Game(loadCode);
 				game.run();
 				exit = true;

@@ -14,7 +14,7 @@ private:
 	uint rows;
 	uint columns;
 	// probabilidad sobre 100
-	uint rewardSpawnProb = 50;
+	uint rewardSpawnProb = 30;
 
 public:
 	BlocksMap();
@@ -22,6 +22,8 @@ public:
 	~BlocksMap();
 	void update();
 	virtual void handleEvents(SDL_Event event);
+	void saveToFile(ofstream & file);
+	void loadFromFile(ifstream & file, Texture* texture);
 	void loadMap(string filename, Texture* texture);
 	void render();
 	uint blockNumber() const;

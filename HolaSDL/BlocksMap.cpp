@@ -69,6 +69,49 @@ void BlocksMap::loadMap(string filename, Texture* texture)
 		input.close();
 }
 
+void BlocksMap::saveToFile(ofstream& file) 
+{
+	ArkanoidObject::saveToFile(file);
+	file << rows << " ";
+	file << columns << endl;
+
+	for (uint i = 0; i < rows; i++)
+	{
+		for (uint j = 0; j < columns; j++)
+		{			
+			file << blocks[j][i]->getColor() << " ";			
+		}
+		file << endl;
+	}
+	file << endl;	
+}
+
+void BlocksMap::loadFromFile(ifstream& file, Texture* texture) {
+	ArkanoidObject::loadFromFile(file);
+
+	file >> rows;
+	file >> columns;
+
+	blocks = new Block**[columns];
+	for (uint x = 0; x < columns; x++) {
+		blocks[x] = new Block*[rows];
+	}
+
+	int color;
+	for (int y=0; y<rows; y++)
+	{
+		for (int x=0; x<columns;x++)
+		{
+			int margen = (WIN_WIDTH - w) / 2;
+			int posX = x * (w / columns) + margen;
+			int posY = y * (h / rows) + 20;			
+			file >> color;
+			blocks[x][y] = new Block(w / columns, h / rows, color, y, x, Vector2D(posX, posY), texture);
+		}
+	}
+	
+}
+
 // renderiza el mapa de bloques
 void BlocksMap::render()
 {

@@ -24,12 +24,13 @@ Game::Game() {
 
 	currentLevel = 0;
 	lifes = 3;
+	cout << "Lifes: " << lifes << endl;
 
 	blocksmap = new BlocksMap(600, 300, textures[brickstexture]);
 	blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[brickstexture]);
 	paddle = new Paddle(Vector2D(400, 500), 100, 20, Vector2D(20, 0), textures[paddletexture]);
 	ballpos = Vector2D(400, 400);
-	ballspeed = Vector2D(0.04, -0.04);
+	ballspeed = Vector2D(2, -2);
 	ball = new Ball(ballpos, 15, 15, ballspeed, textures[balltexture], this);
 	leftwall = new Wall("left", 20, WIN_HEIGHT, Vector2D(5, 0), textures[sidetexture]);
 	rightwall = new Wall("right", 20, WIN_HEIGHT, Vector2D(775, 0), textures[sidetexture]);	
@@ -65,9 +66,10 @@ Game::Game(string filename) {
 		file.open(saveFile);
 		file >> currentLevel;
 		file >> lifes;
+		cout << "Lifes: " << lifes << endl;
 		blocksmap = new BlocksMap(0, 0, textures[brickstexture]);
-		blocksmap->loadFromFile(file);
-		blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[brickstexture]);
+		blocksmap->loadFromFile(file, textures[brickstexture]);
+		//blocksmap->loadMap("..//maps//" + levels[currentLevel], textures[brickstexture]);
 		paddle = new Paddle(Vector2D(0, 0), 0, 0, Vector2D(0, 0), textures[paddletexture]);
 		paddle->loadFromFile(file);
 		ball = new Ball(Vector2D(0, 0), 0, 0, Vector2D(0, 0), textures[balltexture], this);
@@ -85,14 +87,14 @@ Game::Game(string filename) {
 	}	
 }
 Game::~Game() {
-	for (auto arkanoidObject : arkanoidObjects)
-		delete arkanoidObject;
-	/*delete paddle;
+	/*for (auto arkanoidObject : arkanoidObjects)
+		delete arkanoidObject;*/
+	delete paddle;
 	delete ball;
 	delete blocksmap;
 	delete leftwall;
 	delete rightwall;
-	delete topwall;*/
+	delete topwall;
 	for(uint i = 0; i < NUM_TEXTURES; i++)
 		delete textures[i];
 	SDL_DestroyRenderer(renderer);
@@ -115,12 +117,17 @@ void Game::update() {
 	{
 		arkanoidObject->update();
 	}
-
-
 	if (exit)
 	{
 		SDL_Quit();
 	}
+
+	int startTime = SDL_GetTicks();
+	int frameTime = SDL_GetTicks() - startTime;
+	if (frameTime < FRAME_RATE) {
+		SDL_Delay(FRAME_RATE - frameTime);
+	}
+
 }
 
 // renderiza todos los objetos
@@ -128,13 +135,10 @@ void Game::render(){
 
 	SDL_RenderClear(renderer);
 	for (auto arkanoidObject : arkanoidObjects)
-	{		
-		if(currentLevel!=0)
-			arkanoidObject->render();
-		else
-		{
-			arkanoidObject->render();
-		}
+	{	
+		
+		arkanoidObject->render();
+		
 	}	
 	SDL_RenderPresent(renderer);
 }
@@ -144,10 +148,16 @@ void Game::handleEvents() {
 	SDL_Event event;
 	while(SDL_PollEvent(&event) && !exit) {
 		if (event.type == SDL_QUIT)
-		{
-			if(!savedGame)
-				saveGame();
+		{		
 			exit = true;
+		}
+		if (event.type == SDL_KEYDOWN) {
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_s:
+				saveGame();
+				break;
+			}
 		}
 		paddle->handleEvents(event);
 	}
@@ -175,13 +185,17 @@ bool Game::collides(const SDL_Rect* rect, const Vector2D* speed, Vector2D& collV
 
 // maneja como actuar cuando el jugador pierde una vida
 void Game::death() {
+	ballpos = Vector2D(400, 400);
+	if (ballspeed.getY() > 0) {
+		ballspeed = Vector2D(ballspeed.getX(), -ballspeed.getY());
+	}
 	if (lifes > 1) {
 		lifes--;
 		ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
 	}
 	else
 	{
-		cout << "GAME OVER";
+		cout << "GAME OVER" << endl;
 		ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
 		SDL_Delay(3000);
 		currentLevel = 0;
@@ -200,6 +214,11 @@ void Game::death() {
 // avanza al siguiente nivel
 void Game::nextLevel()
 {
+	ballpos = Vector2D(400, 400);
+	if (ballspeed.getY() > 0) {
+		ballspeed = Vector2D(ballspeed.getX(), -ballspeed.getY());
+	}
+
 	if (currentLevel == 2)
 	{
 		cout << "YOU WON THE GAME";
@@ -225,6 +244,7 @@ void Game::nextLevel()
 void Game::extraLife()
 {
 	lifes++;
+	cout << "Lifes: " << lifes << endl;
 }
 
 void Game::killObject(uint ind)
@@ -244,13 +264,22 @@ void Game::loadList()
 
 void Game::saveGame()
 {
-	ofstream file(saveFile, ofstream::trunc);
+	cout << "Escribe el nombre de la partida: " << endl;
+	string partida;
+	cin >> partida;
+	string filename = "..\\saves\\" + partida + ".txt";
+
+	ofstream file(filename, ofstream::trunc);
+
 	file << currentLevel << endl;
 	file << lifes << endl;
-	for (auto arkanoidObject : arkanoidObjects)
+
+	for (auto arkanoidObject : arkanoidObjects) {
 		arkanoidObject->saveToFile(file);
+	}		
+
 	file.close();
-	savedGame = true;
+	exit = true;	
 }
 
 void Game::spawnReward(Vector2D pos)
@@ -258,7 +287,7 @@ void Game::spawnReward(Vector2D pos)
 	srand(time(NULL));
 	uint type = rand() % 4;
 	list<ArkanoidObject*>::iterator it = arkanoidObjects.end();
-	Reward* powerUp = new Reward(pos, 50, 20, powerUpType[type], Vector2D(0, 0.02), paddle, textures[rewardtexture], this, it);
+	Reward* powerUp = new Reward(pos, 50, 20, powerUpType[type], Vector2D(0, 2), paddle, textures[rewardtexture], this, it);
 	arkanoidObjects.push_back(powerUp);
 }
 

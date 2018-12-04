@@ -13,7 +13,7 @@ private:
 	bool powered = false;
 	uint originalTime = 5000;
 	uint powerupTicks = 0;
-	uint oldW;
+	uint oldW = 100;
 public:
 	Paddle();
 	Paddle(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t);

@@ -21,8 +21,8 @@ public:
 
 	void render();
 	void renderFrame(int fila, int col);
-	void loadFromFile(ifstream& file);
-	void saveToFile(ofstream& file) const;
+	virtual void loadFromFile(ifstream& file);
+	virtual void saveToFile(ofstream& file);
 
 	SDL_Rect getDestRect();
 	uint getX() { return pos.getX(); }

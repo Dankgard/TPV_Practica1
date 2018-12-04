@@ -14,7 +14,7 @@ public:
 	MovingObject(Vector2D pos, uint w, uint h, Texture* t, Vector2D spe);
 
 	void loadFromFile(ifstream& file);
-	void saveToFile(ofstream& file);
+	virtual void saveToFile(ofstream& file);
 	Vector2D getSpeed();
 	void setSpeed(Vector2D newSpeed);
 };

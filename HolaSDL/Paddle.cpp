@@ -94,8 +94,8 @@ uint Paddle::getTimeElapsed()
 
 void Paddle::saveToFile(ofstream& file)
 {
-	MovingObject::saveToFile(file);
 	w = oldW;
+	MovingObject::saveToFile(file);	
 }
 
 

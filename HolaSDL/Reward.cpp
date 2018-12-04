@@ -10,6 +10,7 @@ Reward::Reward(Vector2D pos, uint w, uint h, uint tipo, Vector2D vel, Paddle* p,
 	paddle = p;
 	game = g;
 	itList = it;
+	TimeAnima = SDL_GetTicks();
 }
 
 void Reward::update()
@@ -43,20 +44,16 @@ void Reward::kindHelp()
 	switch (type)
 	{
 	case 0: // L
-		game->nextLevel();
-		cout << "next level" << endl;
+		game->nextLevel();		
 		break;
 	case 1: // E
-		paddle->longerPaddle();
-		cout << "longer paddle" << endl;
+		paddle->longerPaddle();		
 		break;
 	case 3: // S
-		paddle->shorterPaddle();
-		cout << "shorter paddle" << endl;
+		paddle->shorterPaddle();		
 		break;
 	case 4: // R
-		game->extraLife();
-		cout << "extra life" << endl;
+		game->extraLife();		
 		break;
 	}
 	game->killObject(index);
@@ -64,10 +61,10 @@ void Reward::kindHelp()
 
 void Reward::render()
 {	
-	if (getTimeElapsed() >= animVel) {
+	if (SDL_GetTicks() > TimeAnima + animVel) {
 		animFrame++;
-		ticks = 0;
-		if (animFrame == 7) {
+		TimeAnima = SDL_GetTicks();
+		if (animFrame == 8) {
 			animFrame = 0;
 		}
 	}

@@ -18,7 +18,7 @@ typedef unsigned int uint;
 const uint WIN_WIDTH = 800;
 const uint WIN_HEIGHT = 600;
 const uint NUM_TEXTURES = 6;
-const uint FRAME_RATE = 0;
+const uint FRAME_RATE = 10;
 
 class Game {
 private:

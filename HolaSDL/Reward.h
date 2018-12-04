@@ -16,9 +16,11 @@ private:
 	Paddle* paddle;
 	Game* game;
 
-	int animVel = 10;
+	int animVel = 100;
 	int animFrame = 0;
 	int ticks = 0;
+
+	int TimeAnima = 0;
 
 	bool used = false;
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "ArkanoidObject.h"
+#include "Game.h"
 #include "checkML.h"
 #include <fstream>
 
@@ -37,17 +38,17 @@ void ArkanoidObject::loadFromFile(ifstream& file)
 {
 	double x;
 	double y;
-	file >> x;
-	file >> y;
+	file >> x >> y >> w >> h;
+	//file >> y;
 	pos = Vector2D(x, y);
-	file >> w;
-	file >> h;
+	//file >> w;
+	//file >> h;
 }
 
-void ArkanoidObject::saveToFile(ofstream& file) const
+void ArkanoidObject::saveToFile(ofstream& file)
 {
-	file << pos.getX() << " ";
-	file << pos.getY() << " ";
+	file << (uint)pos.getX() << " ";
+	file << (uint)pos.getY() << " ";
 	file << w << " ";
 	file << h << endl;
 }
