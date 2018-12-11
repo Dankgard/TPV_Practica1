@@ -87,14 +87,14 @@ Game::Game(string filename) {
 	}	
 }
 Game::~Game() {
-	/*for (auto arkanoidObject : arkanoidObjects)
-		delete arkanoidObject;*/	
-	delete paddle;
+	for (auto arkanoidObject : arkanoidObjects)
+		delete arkanoidObject;	
+	/*delete paddle;
 	delete ball;
 	delete blocksmap;
 	delete leftwall;
 	delete rightwall;
-	delete topwall;
+	delete topwall;*/
 	for(uint i = 0; i < NUM_TEXTURES; i++)
 		delete textures[i];
 	SDL_DestroyRenderer(renderer);

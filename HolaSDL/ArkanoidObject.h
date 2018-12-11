@@ -18,6 +18,7 @@ protected:
 public:
 	ArkanoidObject();
 	ArkanoidObject(Vector2D pos, uint w, uint h, Texture* t);
+	virtual ~ArkanoidObject() {}
 
 	void render();
 	void renderFrame(int fila, int col);

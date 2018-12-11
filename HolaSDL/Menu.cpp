@@ -55,12 +55,16 @@ Menu::Menu() {
 
 Menu::~Menu() {
 	// destruye los punteros
-	window = nullptr;
-	renderer = nullptr;
+	delete Play;
 	Play = nullptr;
+	delete exitB;
 	exitB = nullptr;
+	delete Load;
 	Load = nullptr;
+	delete Title;
 	Title = nullptr;
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
 }
 
 void Menu::run() {
