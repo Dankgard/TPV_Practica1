@@ -18,7 +18,13 @@ void GameStateMachine::render()
 
 void GameStateMachine::handleEvents()
 {
-	
+	/*while (event)
+	{
+		if (event.type == SDL_QUIT)
+			exit = true;
+		else
+			stateMachine.CurrentState->handleEvents(event);
+	}*/
 }
 
 void GameStateMachine::pushState(GameState *pState)
@@ -41,5 +47,6 @@ void GameStateMachine::popState()
 
 void GameStateMachine::changeState(GameState *pState)
 {
-	
+	popState();
+	pushState(pState);
 }
