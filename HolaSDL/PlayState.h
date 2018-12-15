@@ -10,17 +10,17 @@ class Game;
 class PlayState : public GameState
 {
 private:
-	list<GameObject*> objects;
-	static const std::string sPlayID;
+	static const string sPlayID;
 public:
+	PlayState();
 	~PlayState();	
 
 	virtual void update();
 	virtual void render();
-	virtual void handleEvents();
+	virtual void handleEvents(SDL_Event event);
 
 	virtual bool onEnter();
 	virtual bool onExit();
 
-	virtual std::string getStateID() const { return sPlayID; }
+	virtual string getStateID() const { return sPlayID; }
 };

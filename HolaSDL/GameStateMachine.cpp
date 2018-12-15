@@ -1,52 +1,35 @@
 #include "GameStateMachine.h"
 
-void GameStateMachine::update()
-{
-	if (!machineGameStates.empty())
-	{
-		machineGameStates.back()->update();
-	}
+GameStateMachine::GameStateMachine() {
+	//pushState(new MainMenuState());
 }
 
-void GameStateMachine::render()
-{
-	if (!machineGameStates.empty())
-	{
-		machineGameStates.back()->render();
-	}
+GameStateMachine::~GameStateMachine() {
+
 }
 
-void GameStateMachine::handleEvents()
-{
-	/*while (event)
-	{
-		if (event.type == SDL_QUIT)
-			exit = true;
-		else
-			stateMachine.CurrentState->handleEvents(event);
-	}*/
+
+GameState* GameStateMachine::getCurrentState() {
+	return currentState;
 }
 
-void GameStateMachine::pushState(GameState *pState)
+void GameStateMachine::pushState(GameState *state)
 {
-	machineGameStates.push_back(pState);
-	machineGameStates.back()->onEnter();
+	stateStack.push(state);
+	currentState = stateStack.top();
 }
 
 void GameStateMachine::popState()
 {
-	if (!machineGameStates.empty())
+	if (!stateStack.empty())
 	{
-		if (machineGameStates.back()->onExit())
-		{
-			delete machineGameStates.back();
-			machineGameStates.pop_back();
-		}
+		delete stateStack.top();
+		stateStack.pop();
 	}
 }
 
-void GameStateMachine::changeState(GameState *pState)
+void GameStateMachine::changeState(GameState *state)
 {
 	popState();
-	pushState(pState);
+	pushState(state);
 }

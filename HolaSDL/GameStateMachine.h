@@ -6,15 +6,15 @@ class GameState;
 class GameStateMachine
 {
 private:	
-	stack<GameState*> stack;
-	std::vector<GameState*> machineGameStates;
+	stack<GameState*> stateStack;
+	GameState* currentState = nullptr;
 	bool exit;
 public:
-	void update();
-	void render();
-	void handleEvents();
+	GameStateMachine();
+	~GameStateMachine();
 
-	void pushState(GameState* pState);
-	void changeState(GameState* pState);
+	GameState* getCurrentState();
+	void pushState(GameState* state);
+	void changeState(GameState* state);
 	void popState();	
 };

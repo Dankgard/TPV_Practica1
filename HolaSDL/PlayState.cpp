@@ -1,6 +1,16 @@
 #include "PlayState.h"
 
-const std::string PlayState::sPlayID = "PLAY";
+const string PlayState::sPlayID = "PLAY";
+
+PlayState::PlayState()
+{
+
+}
+
+PlayState::~PlayState()
+{
+
+}
 
 void PlayState::update()
 {
@@ -10,6 +20,11 @@ void PlayState::update()
 void PlayState::render()
 {
 	// nothing for now
+}
+
+void handleEvents(SDL_Event event)
+{
+
 }
 
 bool PlayState::onEnter()

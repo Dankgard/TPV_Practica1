@@ -6,6 +6,8 @@ using namespace std;
 
 class MainMenuState : public GameState 
 {
+	private:
+		static const string s_menuID; //Identificador
 	public:
 		virtual void update();
 		virtual void render();
@@ -13,7 +15,5 @@ class MainMenuState : public GameState
 		virtual bool onEnter();
 		virtual bool onExit();
 
-		virtual std::string getStateID() const { return s_menuID; }
-private:
-	static const std::string s_menuID; //Identificador
+		virtual string getStateID() const { return s_menuID; }
 };
