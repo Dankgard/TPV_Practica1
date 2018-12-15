@@ -4,6 +4,8 @@
 #include "Vector2D.h"
 #include "Texture.h"
 
+using namespace std;
+
 class Game;
 class PlayState : public GameState
 {

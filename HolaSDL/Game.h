@@ -49,7 +49,7 @@ private:
 	uint powerUpType[4] = { 0, 1, 3, 4 };
 	list<ArkanoidObject*> arkanoidObjects;
 
-	string saveFile;
+	string saveFile;	
 
 public:
 	Game();

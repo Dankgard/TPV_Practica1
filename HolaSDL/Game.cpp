@@ -112,26 +112,17 @@ void Game::run() {
 }
 
 // actualiza el estado del juego
-void Game::update() {
-	/*for (auto arkanoidObject : arkanoidObjects)
-	{
-		arkanoidObject->update();
-	}*/
+void Game::update() {	
+
+	//PLAY
 	for (list<ArkanoidObject*>::iterator it = arkanoidObjects.begin(); it != arkanoidObjects.end();) {
 		((*it++))->update();
-	}
-
-	if (exit)
-	{
-		SDL_Quit();
-	}
-
+	}	
 	int startTime = SDL_GetTicks();
 	int frameTime = SDL_GetTicks() - startTime;
 	if (frameTime < FRAME_RATE) {
 		SDL_Delay(FRAME_RATE - frameTime);
 	}
-
 }
 
 // renderiza todos los objetos
