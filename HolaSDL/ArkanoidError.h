@@ -2,6 +2,7 @@
 
 #include <string>
 #include <stdexcept>
+#include "checkML.h"
 
 class ArkanoidError : public std::logic_error {
 protected:
