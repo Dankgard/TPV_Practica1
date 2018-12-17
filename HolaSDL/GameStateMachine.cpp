@@ -25,6 +25,7 @@ void GameStateMachine::popState()
 	{
 		delete stateStack.top();
 		stateStack.pop();
+		currentState = stateStack.top();
 	}
 }
 
@@ -32,4 +33,5 @@ void GameStateMachine::changeState(GameState *state)
 {
 	popState();
 	pushState(state);
+	currentState = stateStack.top();
 }

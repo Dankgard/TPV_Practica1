@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameState.h"
+#include <stack>
 
 class GameState;
 class GameStateMachine

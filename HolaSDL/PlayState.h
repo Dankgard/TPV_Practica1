@@ -1,6 +1,8 @@
 #pragma once
 
 #include "GameState.h"
+#include "PauseState.h"
+#include "SdlApplication.h"
 #include "Vector2D.h"
 #include "Texture.h"
 
