@@ -14,17 +14,25 @@ PlayState::~PlayState()
 
 void PlayState::update()
 {
-	// nothing for now
+	GameState::update();
 }
 
 void PlayState::render()
 {
-	// nothing for now
+	GameState::render();
 }
 
-void handleEvents(SDL_Event event)
+void PlayState::handleEvents(SDL_Event event)
 {
+	while (SDL_PollEvent(&event) && !exit) {
+		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
 
+		}
+		else
+		{
+			GameState::handleEvents(event);
+		}
+	}
 }
 
 bool PlayState::onEnter()
