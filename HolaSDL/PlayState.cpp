@@ -2,10 +2,10 @@
 
 const string PlayState::sPlayID = "PLAY";
 
-PlayState::PlayState()
+PlayState::PlayState(SdlApplication* app): GameState(app)
 {
 
-}
+};
 
 PlayState::~PlayState()
 {

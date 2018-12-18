@@ -1,7 +1,7 @@
 #include "PauseState.h"
 
-PauseState::PauseState() {
-	cout << "PauseState" << endl;
+PauseState::PauseState(SdlApplication* app) : GameState(app) {
+
 }
 
 PauseState::~PauseState() {

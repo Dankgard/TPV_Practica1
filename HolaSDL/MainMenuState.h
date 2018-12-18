@@ -15,4 +15,5 @@ class MainMenuState : public GameState
 		~MainMenuState();
 
 		void handleEvents();
+		static void startGame(SdlApplication* app);
 };

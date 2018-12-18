@@ -16,7 +16,7 @@ class PlayState : public GameState
 private:
 	static const string sPlayID;
 public:
-	PlayState();
+	PlayState(SdlApplication* app);
 	~PlayState();	
 
 	virtual void update();

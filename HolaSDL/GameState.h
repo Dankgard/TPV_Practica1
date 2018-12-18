@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "SdlApplication.h"
 #include "checkML.h"
 #include <list>
 
@@ -10,17 +11,13 @@ class Game;
 class GameState {
 protected:
 	list<GameObject*> gameObjects;
-	Game* game;
+	SdlApplication* app;
 public:
-	GameState();
+	GameState(SdlApplication* app) {};
 	~GameState() { }
 
-	virtual void update() = 0;
-	virtual void render() = 0;
-	virtual void handleEvents(SDL_Event event) = 0;
+	virtual void update();
+	virtual void render();
+	virtual void handleEvents(SDL_Event event);
 
-	virtual bool onEnter() = 0;
-	virtual bool onExit() = 0;	
-
-	virtual string getStateID() const = 0;
 };

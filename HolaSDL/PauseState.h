@@ -6,7 +6,7 @@
 class PauseState :public GameState
 {
 public:
-	PauseState();
+	PauseState(SdlApplication* app);
 	~PauseState();
 
 	void update();

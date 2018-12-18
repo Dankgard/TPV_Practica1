@@ -21,4 +21,6 @@ public:
 
 	void render();	
 	bool handleEvents(SDL_Event& e);
+	void handleEvents(SDL_Event e) {};
+	void update() {};
 };

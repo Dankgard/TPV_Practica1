@@ -35,3 +35,5 @@ void GameStateMachine::changeState(GameState *state)
 	pushState(state);
 	currentState = stateStack.top();
 }
+
+
