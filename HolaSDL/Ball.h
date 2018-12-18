@@ -18,6 +18,6 @@ public:
 	~Ball() {}	
 
 	void update();
-	virtual void handleEvents(SDL_Event event);
+	virtual bool handleEvents(SDL_Event& event);
 	void resetBall(Vector2D originalPos, double speedX, double speedY);
 };

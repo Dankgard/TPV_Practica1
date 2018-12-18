@@ -18,7 +18,7 @@ public:
 	~Wall() {}
 
 	virtual void update();
-	virtual void handleEvents(SDL_Event event);
+	virtual bool handleEvents(SDL_Event& event);
 
 	bool collides(const SDL_Rect* rect, Vector2D& collVector);
 };

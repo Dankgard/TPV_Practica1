@@ -4,14 +4,6 @@
 
 using namespace std;
 
-void GameObject::render() {
+GameObject::GameObject() {}
 
-}
-
-void GameObject::update() {
-
-}
-
-void GameObject::handleEvents(SDL_Event event) {
-
-}
+GameObject::~GameObject() {}

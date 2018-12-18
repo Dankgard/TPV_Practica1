@@ -31,6 +31,7 @@ public:
 	void update();
 	void render();
 	void handleEvents(SDL_Event event);
+	virtual bool handleEvents(SDL_Event& event);
 	void kindHelp();
 	void deleteReward();
 	bool collides();

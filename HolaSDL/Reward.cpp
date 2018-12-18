@@ -75,6 +75,9 @@ void Reward::handleEvents(SDL_Event event)
 {
 
 }
+bool Reward::handleEvents(SDL_Event& event) {
+	return true;
+}
 
 uint Reward::getTimeElapsed()
 {

@@ -22,7 +22,8 @@ public:
 	bool collides(const SDL_Rect* rect, Vector2D& collVector);
 	void mov(int speed);
 	virtual void update();
-	void handleEvents(SDL_Event event);
+	void handleEvent(SDL_Event event);
+	virtual bool handleEvents(SDL_Event& event);
 	void shorterPaddle();
 	void longerPaddle();
 	void originalPaddle();

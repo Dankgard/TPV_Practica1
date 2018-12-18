@@ -20,7 +20,7 @@ public:
 	~Block() {}
 
 	virtual void update();
-	virtual void handleEvents(SDL_Event event);
+	virtual bool handleEvents(SDL_Event& event);
 
 	uint getColor() { return color; }
 	void setColor(uint col) { color = col; }

@@ -9,9 +9,9 @@ Ball::Ball(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t, Game* g) :
 	MovingObject(pos, w, h, t, speed), game(g){}
 
 
-void Ball::handleEvents(SDL_Event event)
+bool Ball::handleEvents(SDL_Event& event)
 {
-
+	return true;
 }
 
 // actualiza el estado de la pelota

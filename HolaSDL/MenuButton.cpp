@@ -7,7 +7,12 @@ MenuButton::~MenuButton() {
 }
 
 void MenuButton::render() {
-	GameObject::render();
+	SDL_Rect dstRect;
+	dstRect.x = x;
+	dstRect.y = y;
+	dstRect.w = w;
+	dstRect.h = h;
+	texture->render(dstRect, SDL_FLIP_NONE);
 }
 
 bool MenuButton::handleEvents(SDL_Event& e) {

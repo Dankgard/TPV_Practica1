@@ -16,9 +16,9 @@ void BlocksMap::update()
 
 }
 
-void BlocksMap::handleEvents(SDL_Event event)
+bool BlocksMap::handleEvents(SDL_Event& event)
 {
-
+	return true;
 }
 
 BlocksMap::~BlocksMap() {

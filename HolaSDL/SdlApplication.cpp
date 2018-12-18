@@ -6,15 +6,12 @@ SdlApplication::SdlApplication() {
 	// We first initialize SDL
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("Arkanoid", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN);
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);	
 
-	gameStates[menu] = new MainMenuState(this);
-	gameStates[play] = new PlayState(this);
-	gameStates[pause] = new PauseState(this);
-	gameStates[end] = new EndState(this);
-
+	textures[0] = new Texture(renderer);
+	textures[0]->load("..\\images\\play.png", 1, 1);
 	state = new GameStateMachine();
-	state->pushState(gameStates[menu]);
+	state->pushState(new MainMenuState(this));
 }
 
 SdlApplication::~SdlApplication() {

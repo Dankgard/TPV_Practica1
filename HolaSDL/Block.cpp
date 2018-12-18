@@ -13,9 +13,9 @@ void Block::update()
 
 }
 
-void Block::handleEvents(SDL_Event event)
+bool Block::handleEvents(SDL_Event& event)
 {
-
+	return true;
 }
 
 // renderiza los bloques

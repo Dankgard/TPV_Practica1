@@ -27,7 +27,7 @@ void Paddle::mov(int speed){
 
 
 // maneja los eventos de teclado de la pala
-void Paddle::handleEvents(SDL_Event event) {
+void Paddle::handleEvent(SDL_Event event) {
 	
 	if (event.type == SDL_KEYDOWN) {
 		switch (event.key.keysym.sym)
@@ -42,6 +42,9 @@ void Paddle::handleEvents(SDL_Event event) {
 			break;
 		}
 	}
+}
+bool Paddle::handleEvents(SDL_Event& event) {
+	return true;
 }
 
 bool Paddle::collides(const SDL_Rect* rect, Vector2D& collVector)

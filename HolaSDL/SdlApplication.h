@@ -17,7 +17,7 @@ protected:
 	bool exit = false;
 	Texture* textures[6];
 	GameStateMachine* state = nullptr;
-	GameState* gameStates[4];
+	
 	enum GameState { menu, play, pause, end };
 
 public:

@@ -21,7 +21,7 @@ public:
 	BlocksMap(uint w, uint h, Texture* t);
 	~BlocksMap();
 	void update();
-	virtual void handleEvents(SDL_Event event);
+	virtual bool handleEvents(SDL_Event& event);
 	void saveToFile(ofstream & file);
 	void loadFromFile(ifstream & file, Texture* texture);
 	void loadMap(string filename, Texture* texture);

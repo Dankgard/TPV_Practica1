@@ -35,6 +35,7 @@ Game::Game() {
 	leftwall = new Wall("left", 20, WIN_HEIGHT, Vector2D(5, 0), textures[sidetexture]);
 	rightwall = new Wall("right", 20, WIN_HEIGHT, Vector2D(775, 0), textures[sidetexture]);	
 	topwall = new Wall("top", WIN_WIDTH, 20, Vector2D(0, 0), textures[topsidetexture]);	
+
 	loadList();
 }
 
@@ -159,7 +160,7 @@ void Game::handleEvents() {
 			}
 			
 		}
-		paddle->handleEvents(event);
+		paddle->handleEvent(event);
 	}
 }
 

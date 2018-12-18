@@ -14,9 +14,9 @@ void Wall::update()
 
 }
 
-void Wall::handleEvents(SDL_Event event)
+bool Wall::handleEvents(SDL_Event& event)
 {
-
+	return true;
 }
 
 bool Wall::collides(const SDL_Rect* rect, Vector2D& collVector) {
