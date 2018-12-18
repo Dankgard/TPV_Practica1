@@ -25,6 +25,8 @@ SdlApplication::~SdlApplication() {
 void SdlApplication::run() {
 	while (!exit) {
 		render();
+		handleEvents();
+		state->getCurrentState()->update();
 	}
 }
 

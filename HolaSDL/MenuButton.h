@@ -19,6 +19,6 @@ public:
 	MenuButton(Texture* t, int x, int y, int w, int h, void(*callback)(SdlApplication* app));
 	~MenuButton();
 
-	void render();
+	void render();	
 	bool handleEvents(SDL_Event& e);
 };

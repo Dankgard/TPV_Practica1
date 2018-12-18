@@ -15,7 +15,7 @@ protected:
 	const uint WIN_HEIGHT = 600;
 
 	bool exit = false;
-	Texture* textures[6];	// Cambiar inmediato?
+	Texture* textures[6];
 	GameStateMachine* state = nullptr;
 	enum GameState { menu, play, pause, end };
 

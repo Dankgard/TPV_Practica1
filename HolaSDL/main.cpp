@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Menu.h"
 #include "Game.h"
+#include "SdlApplication.h"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ using uint = unsigned int;
 
 
 int main(int argc, char* argv[]){
-	Menu menu = Menu();
-	menu.run();
+	SdlApplication app = SdlApplication();
+	app.run();
 	return 0;
 }

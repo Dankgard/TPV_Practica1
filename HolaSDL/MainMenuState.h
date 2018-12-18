@@ -2,20 +2,17 @@
 
 #include"GameState.h"
 #include "checkML.h"
-
+#include "MenuButton.h"
 
 using namespace std;
 
 class MainMenuState : public GameState 
 {
-	private:
-		static const string s_menuID; //Identificador
+	protected:
+		MenuButton* ButtonPlay;
 	public:
-		virtual void update();
-		virtual void render();
+		MainMenuState(SdlApplication* app);
+		~MainMenuState();
 
-		virtual bool onEnter();
-		virtual bool onExit();
-
-		virtual string getStateID() const { return s_menuID; }
+		void handleEvents();
 };
