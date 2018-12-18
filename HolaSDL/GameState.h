@@ -1,13 +1,13 @@
 #pragma once
 
 #include "GameObject.h"
-#include "SdlApplication.h"
+#include "SDL.h"
 #include "checkML.h"
 #include <list>
 
 using namespace std;
 
-class Game;
+class SdlApplication;
 class GameState {
 protected:
 	list<GameObject*> gameObjects;

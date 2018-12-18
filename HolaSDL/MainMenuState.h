@@ -6,6 +6,8 @@
 
 using namespace std;
 
+using CallBackOnClick = void(SdlApplication* app);
+
 class MainMenuState : public GameState 
 {
 	protected:

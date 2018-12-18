@@ -2,9 +2,9 @@
 
 #include "GameObject.h"
 #include "Texture.h"
-#include "SdlApplication.h"
+/*#include "SdlApplication.h"
 #include "SDL.h" // Windows
-#include "SDL_image.h" // Windows
+#include "SDL_image.h" // Windows*/
 #include "checkML.h"
 
 using CallBackOnClick = void(SdlApplication* app);

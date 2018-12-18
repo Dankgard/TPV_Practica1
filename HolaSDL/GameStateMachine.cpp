@@ -1,7 +1,7 @@
 #include "GameStateMachine.h"
 
 GameStateMachine::GameStateMachine() {
-	//pushState(new MainMenuState());
+	
 }
 
 GameStateMachine::~GameStateMachine() {
@@ -35,5 +35,3 @@ void GameStateMachine::changeState(GameState *state)
 	pushState(state);
 	currentState = stateStack.top();
 }
-
-

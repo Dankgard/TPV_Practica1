@@ -8,14 +8,13 @@
 #include <stack>
 #include "checkML.h"
 
+using namespace std;
 
-class GameState;
 class GameStateMachine
 {
-private:	
+protected:	
 	stack<GameState*> stateStack;
-	GameState* currentState = nullptr;
-	bool exit;
+	GameState* currentState = nullptr;	
 public:
 	GameStateMachine();
 	~GameStateMachine();
