@@ -13,11 +13,11 @@ protected:
 	list<GameObject*> gameObjects;
 	SdlApplication* app;
 public:
-	GameState(SdlApplication* app) {};
+	GameState(SdlApplication* app) :app(app) {};
 	~GameState() { }
 
 	virtual void update();
 	virtual void render();
-	bool handleEvents(SDL_Event event);
+	virtual bool handleEvents(SDL_Event& event);
 
 };

@@ -1,10 +1,9 @@
 #include "PlayState.h"
 
-const string PlayState::sPlayID = "PLAY";
 
 PlayState::PlayState(SdlApplication* app): GameState(app)
 {
-	
+	cout << app;
 };
 
 PlayState::~PlayState()
@@ -12,37 +11,26 @@ PlayState::~PlayState()
 
 }
 
-void PlayState::update()
-{
-	GameState::update();
-}
 
 void PlayState::render()
 {
-	GameState::render();
+	SDL_Rect dstRect;
+	dstRect.x = 100;
+	dstRect.y = 100;
+	dstRect.w = 300;
+	dstRect.h = 300;
+	Texture* texture = app->getTexture(2);
+	texture->render(dstRect, SDL_FLIP_NONE);
 }
 
-void PlayState::handleEvents(SDL_Event event)
-{
-	while (SDL_PollEvent(&event) && !exit) {
-		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
-			
-		}
-		else
-		{
-			GameState::handleEvents(event);
-		}
+bool PlayState::handleEvents(SDL_Event& event)
+{	
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+		app->getStateMachine()->pushState(new PauseState(app));
 	}
-}
-
-bool PlayState::onEnter()
-{
-	cout << "Entrar PlayState" << endl;
-	return true;
-}
-
-bool PlayState::onExit()
-{
-	std::cout << "Salir PlayState" << endl;
+	else
+	{
+		GameState::handleEvents(event);
+	}
 	return true;
 }

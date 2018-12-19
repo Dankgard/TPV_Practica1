@@ -13,7 +13,7 @@ void GameState::update() {
 	}
 }
 
-bool GameState::handleEvents(SDL_Event event) {
+bool GameState::handleEvents(SDL_Event& event) {
 	bool handled = false;
 	auto it = gameObjects.begin();
 	while (it != gameObjects.end() && !handled) {

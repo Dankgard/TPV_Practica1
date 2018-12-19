@@ -2,29 +2,18 @@
 
 #include "GameState.h"
 #include "PauseState.h"
-#include "SdlApplication.h"
-#include "Vector2D.h"
-#include "Texture.h"
+#include "MenuButton.h"
 #include "checkML.h"
+#include <iostream>
+#include "SDLApplication.h"
 
 
-using namespace std;
-
-class Game;
 class PlayState : public GameState
 {
-private:
-	static const string sPlayID;
 public:
 	PlayState(SdlApplication* app);
 	~PlayState();	
 
-	virtual void update();
-	virtual void render();
-	virtual void handleEvents(SDL_Event event);
-
-	virtual bool onEnter();
-	virtual bool onExit();
-
-	virtual string getStateID() const { return sPlayID; }
+	void render();
+	bool handleEvents(SDL_Event& event);	
 };

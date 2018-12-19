@@ -9,7 +9,14 @@ SdlApplication::SdlApplication() {
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);	
 
 	textures[0] = new Texture(renderer);
-	textures[0]->load("..\\images\\play.png", 1, 1);
+	textures[0]->load("..\\images\\Play.png", 1, 1);
+	textures[1] = new Texture(renderer);
+	textures[1]->load("..\\images\\Exit.png", 1, 1);
+	textures[2] = new Texture(renderer);
+	textures[2]->load("..\\images\\Title.png", 1, 1);
+	textures[3] = new Texture(renderer);
+	textures[3]->load("..\\images\\paddle.png", 1, 1);
+
 	state = new GameStateMachine();
 	state->pushState(new MainMenuState(this));
 }
@@ -59,6 +66,6 @@ GameStateMachine* SdlApplication::getStateMachine() {
 	return state;
 }
 
-Texture* SdlApplication::getTexture(int texture) {
+Texture* SdlApplication::getTexture(int texture) {	
 	return textures[texture];
 }
