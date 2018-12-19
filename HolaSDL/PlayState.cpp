@@ -4,7 +4,7 @@ const string PlayState::sPlayID = "PLAY";
 
 PlayState::PlayState(SdlApplication* app): GameState(app)
 {
-
+	
 };
 
 PlayState::~PlayState()
@@ -26,7 +26,7 @@ void PlayState::handleEvents(SDL_Event event)
 {
 	while (SDL_PollEvent(&event) && !exit) {
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
-
+			
 		}
 		else
 		{

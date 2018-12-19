@@ -1,6 +1,7 @@
 #pragma once
 
 #include"GameState.h"
+#include "PlayState.h"
 #include "checkML.h"
 #include "MenuButton.h"
 

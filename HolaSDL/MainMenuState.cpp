@@ -3,7 +3,7 @@
 
 MainMenuState::MainMenuState(SdlApplication* app): GameState(app)
 {
-	ButtonPlay = new MenuButton(app->getTexture(0), 100, 100, 100, 100, startGame);
+	ButtonPlay = new MenuButton(app->getTexture(0), 100, 100, 100, 100, startGame, app);
 	gameObjects.push_back(ButtonPlay);
 }
 

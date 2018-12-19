@@ -1,7 +1,7 @@
 #include "MenuButton.h"
 
-MenuButton::MenuButton(Texture* t, int x, int y, int w, int h, void(*callback)(SdlApplication* app)) :
-	texture(t), x(x), y(y), w(w), h(h), cb(callback) {}
+MenuButton::MenuButton(Texture* t, int x, int y, int w, int h, void(*callback)(SdlApplication* app), SdlApplication* app) :
+	texture(t), x(x), y(y), w(w), h(h), cb(callback), app(app) {}
 
 MenuButton::~MenuButton() {
 }

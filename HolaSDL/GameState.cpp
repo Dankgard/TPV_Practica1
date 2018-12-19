@@ -13,8 +13,16 @@ void GameState::update() {
 	}
 }
 
-void GameState::handleEvents(SDL_Event event) {
-	for (list<GameObject*>::iterator it = gameObjects.begin(); it != gameObjects.end();) {
-		((*it++))->handleEvents(event);
+bool GameState::handleEvents(SDL_Event event) {
+	bool handled = false;
+	auto it = gameObjects.begin();
+	while (it != gameObjects.end() && !handled) {
+		if ((*it)->handleEvents(event)) {
+			handled = true;
+		}
+		else {
+			++it;
+		}
 	}
+	return handled;
 }

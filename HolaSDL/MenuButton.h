@@ -16,7 +16,7 @@ protected:
 	SdlApplication* app;
 	CallBackOnClick* cb;
 public:
-	MenuButton(Texture* t, int x, int y, int w, int h, void(*callback)(SdlApplication* app));
+	MenuButton(Texture* t, int x, int y, int w, int h, void(*callback)(SdlApplication* app), SdlApplication* app);
 	~MenuButton();
 
 	void render();	
