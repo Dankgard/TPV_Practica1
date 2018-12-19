@@ -13,6 +13,7 @@ class MainMenuState : public GameState
 {
 	protected:
 		MenuButton* ButtonPlay;
+		MenuButton* CargarPlay;
 	public:
 		MainMenuState(SdlApplication* app);
 		~MainMenuState();
@@ -20,4 +21,5 @@ class MainMenuState : public GameState
 		void render();
 		//void handleEvents(SDL_Event e);
 		static void startGame(SdlApplication* app);
+		static void loadGame(SdlApplication* app);
 };

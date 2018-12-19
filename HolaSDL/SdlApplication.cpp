@@ -16,6 +16,8 @@ SdlApplication::SdlApplication() {
 	textures[2]->load("..\\images\\Title.png", 1, 1);
 	textures[3] = new Texture(renderer);
 	textures[3]->load("..\\images\\paddle.png", 1, 1);
+	textures[4] = new Texture(renderer);
+	textures[4]->load("..\\images\\Load.png", 1, 1);
 
 	state = new GameStateMachine();
 	state->pushState(new MainMenuState(this));
