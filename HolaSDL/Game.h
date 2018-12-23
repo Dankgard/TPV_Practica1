@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SDL.h" // Windows
+/*#include "SDL.h" // Windows
 #include "SDL_image.h" // Windows
 #include "checkML.h"
 #include "Texture.h"
@@ -67,4 +67,4 @@ public:
 	void loadList();
 	void saveGame();
 	void spawnReward(Vector2D pos);
-};
+};*/

@@ -8,13 +8,13 @@
 #include "Paddle.h"
 #include <list>
 
-class Game;
+class PlayState;
 class Reward: public MovingObject {
 private:
 	uint type;
 	uint index;
 	Paddle* paddle;
-	Game* game;
+	PlayState* game;
 
 	int animVel = 100;
 	int animFrame = 0;
@@ -26,7 +26,7 @@ private:
 
 	list<ArkanoidObject*>::iterator itList;
 public:
-	Reward(Vector2D pos, uint w, uint h, uint tipo, Vector2D vel, Paddle* p, Texture* t, Game* g, list<ArkanoidObject*>::iterator it);
+	Reward(Vector2D pos, uint w, uint h, uint tipo, Vector2D vel, Paddle* p, Texture* t, PlayState* g, list<ArkanoidObject*>::iterator it);
 	//virtual void action() = 0;
 	void update();
 	void render();

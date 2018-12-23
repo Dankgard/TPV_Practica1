@@ -1,7 +1,7 @@
 #include "BlocksMap.h"
 #include "Texture.h"
 #include <iostream>
-#include "Game.h"
+#include "PlayState.h"
 #include "checkML.h"
 #include <fstream>
 #include <string>
@@ -54,7 +54,7 @@ void BlocksMap::loadMap(string filename, Texture* texture)
 			{
 				for (uint j = 0;j < columns;j++)
 				{
-					int margen = (WIN_WIDTH - w) / 2;
+					int margen = (SDL_WIN_WIDTH - w) / 2;
 					int posX = j * (w / columns) + margen;
 					int posY = i * (h / rows) + 20;
 					uint color;
@@ -102,7 +102,7 @@ void BlocksMap::loadFromFile(ifstream& file, Texture* texture) {
 	{
 		for (int x=0; x<columns;x++)
 		{
-			int margen = (WIN_WIDTH - w) / 2;
+			int margen = (SDL_WIN_WIDTH - w) / 2;
 			int posX = x * (w / columns) + margen;
 			int posY = y * (h / rows) + 20;			
 			file >> color;
@@ -166,7 +166,7 @@ void BlocksMap::ballHitsBlock(Block* block)
 	
 }
 
-bool BlocksMap::collision(const SDL_Rect* rect, const Vector2D* ballVel, Vector2D& collVector, Game* game)
+bool BlocksMap::collision(const SDL_Rect* rect, const Vector2D* ballVel, Vector2D& collVector, PlayState* game)
 {
 	bool collide = false;
 	if (SDL_HasIntersection(rect, &getDestRect()))

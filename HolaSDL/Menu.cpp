@@ -1,4 +1,4 @@
-#include "Menu.h"
+/*#include "Menu.h"
 #include "Game.h"
 #include "Texture.h"
 #include "checkML.h"
@@ -10,7 +10,6 @@ Menu::Menu() {
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (window == nullptr || renderer == nullptr) throw "Error loading the SDL window or renderer";
 	
-	/*/Rect/*/
 	//Titulo
 	titlerect.x = 100;
 	titlerect.y = 50;
@@ -35,7 +34,6 @@ Menu::Menu() {
 	exitRect.w = 100;
 	exitRect.h = 100;
 
-	/*/Texture/*/
 
 	//Titulo
 	Title = new Texture(renderer);
@@ -117,4 +115,4 @@ void Menu::handleEvents() {
 			}
 		}
 	}
-}
+}*/

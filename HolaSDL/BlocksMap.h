@@ -7,7 +7,7 @@
 
 typedef unsigned int uint;
 
-class Game;
+class PlayState;
 class BlocksMap: public ArkanoidObject {
 private:
 	Block*** blocks;
@@ -29,7 +29,7 @@ public:
 	uint blockNumber() const;
 	Block* collides(const SDL_Rect* ballRect, const Vector2D* ballVel, Vector2D& collVector);
 	Block* blockAt(const Vector2D& p);
-	bool collision(const SDL_Rect* rect, const Vector2D* ballVel, Vector2D& collVector, Game* game);
+	bool collision(const SDL_Rect* rect, const Vector2D* ballVel, Vector2D& collVector, PlayState* game);
 	void ballHitsBlock(Block* block);
 };
 

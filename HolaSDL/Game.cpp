@@ -1,4 +1,4 @@
-#include "Game.h"
+/*#include "Game.h"
 #include <iostream>
 #include "checkML.h"
 #include "Texture.h"
@@ -90,12 +90,12 @@ Game::Game(string filename) {
 Game::~Game() {
 	for (auto arkanoidObject : arkanoidObjects)
 		delete arkanoidObject;	
-	/*delete paddle;
+	delete paddle;
 	delete ball;
 	delete blocksmap;
 	delete leftwall;
 	delete rightwall;
-	delete topwall;*/
+	delete topwall;
 	for(uint i = 0; i < NUM_TEXTURES; i++)
 		delete textures[i];
 	SDL_DestroyRenderer(renderer);
@@ -296,6 +296,6 @@ void Game::spawnReward(Vector2D pos)
 	list<ArkanoidObject*>::iterator it = arkanoidObjects.end();
 	Reward* powerUp = new Reward(pos, 50, 20, powerUpType[type], Vector2D(0, 2), paddle, textures[rewardtexture], this, it);
 	arkanoidObjects.push_back(powerUp);
-}
+}*/
 
 

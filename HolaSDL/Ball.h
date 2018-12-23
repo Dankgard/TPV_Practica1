@@ -7,14 +7,14 @@
 #include "MovingObject.h"
 
 typedef unsigned int uint;
-class Game;
+class PlayState;
 class Ball: public MovingObject {
 private:
-	Game* game = nullptr;	
+	PlayState* game = nullptr;	
 
 public:
 	Ball();
-	Ball(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t, Game* g);
+	Ball(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t, PlayState* g);
 	~Ball() {}	
 
 	void update();

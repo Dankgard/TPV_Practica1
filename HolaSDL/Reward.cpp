@@ -1,9 +1,9 @@
 #include <iostream>
 #include "checkML.h"
 #include "Reward.h"
-#include "Game.h"
+#include "PlayState.h"
 
-Reward::Reward(Vector2D pos, uint w, uint h, uint tipo, Vector2D vel, Paddle* p, Texture* t, Game* g, list<ArkanoidObject*>::iterator it):
+Reward::Reward(Vector2D pos, uint w, uint h, uint tipo, Vector2D vel, Paddle* p, Texture* t, PlayState* g, list<ArkanoidObject*>::iterator it):
 	MovingObject(pos,w,h,t,vel)
 {
 	type = tipo;
@@ -17,7 +17,7 @@ void Reward::update()
 {
 	collides();
 
-	if (getY() > WIN_HEIGHT)
+	if (getY() > SDL_WIN_HEIGHT)
 		deleteReward();
 	else
 		pos = pos + speed;

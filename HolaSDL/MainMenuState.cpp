@@ -2,12 +2,19 @@
 
 MainMenuState::MainMenuState(SdlApplication* app): GameState(app)
 {
-	ButtonPlay = new MenuButton(app->getTexture(0), 100, 100, 100, 100, startGame, app);
-	CargarPlay = new MenuButton(app->getTexture(4), 300, 100, 100, 100, loadGame, app);
+	ButtonPlay = new MenuButton(app->getTexture(playt), 200, 425, 100, 100, startGame, app);
+	CargarPlay = new MenuButton(app->getTexture(loadt), 500, 425, 100, 100, loadGame, app);
 	cout << app;
 	gameObjects.push_back(ButtonPlay);
 	gameObjects.push_back(CargarPlay);
 }
+
+MainMenuState::~MainMenuState()
+{
+	delete ButtonPlay;
+	delete CargarPlay;
+}
+
 
 void MainMenuState::startGame(SdlApplication* app)
 {
@@ -32,11 +39,11 @@ void MainMenuState::render() {
 	CargarPlay->render();
 
 	SDL_Rect dstRect;
-	dstRect.x = 400;
-	dstRect.y = 400;
-	dstRect.w = 300;
-	dstRect.h = 100;
-	Texture* texture = app->getTexture(3);
+	dstRect.x = 100;
+	dstRect.y = 50;
+	dstRect.w = 700;
+	dstRect.h = 200;
+	Texture* texture = app->getTexture(titlet);
 	texture->render(dstRect, SDL_FLIP_NONE);
 }
 

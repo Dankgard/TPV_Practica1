@@ -1,11 +1,11 @@
 #include "Ball.h"
 #include <iostream>
 #include "checkML.h"
-#include "Game.h"
+#include "PlayState.h"
 
 Ball::Ball() : MovingObject(), game() {}
 
-Ball::Ball(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t, Game* g) :
+Ball::Ball(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t, PlayState* g) :
 	MovingObject(pos, w, h, t, speed), game(g){}
 
 
@@ -26,7 +26,7 @@ void Ball::update() {
 		pos = prevPos + speed;
 	}
 
-	if(pos.getY() > WIN_HEIGHT) {
+	if(pos.getY() > SDL_WIN_HEIGHT) {
 		game->death();
 	}
 }
