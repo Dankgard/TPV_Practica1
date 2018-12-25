@@ -2,6 +2,7 @@
 
 #include "GameState.h"
 #include "PauseState.h"
+#include "EndState.h"
 #include "MenuButton.h"
 #include "checkML.h"
 #include <iostream>

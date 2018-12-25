@@ -8,5 +8,5 @@ class FileFormatError : public ArkanoidError {
 protected:
 
 public:
-
+	FileFormatError(const string &message) : ArkanoidError("File Format: " + message) {}
 };

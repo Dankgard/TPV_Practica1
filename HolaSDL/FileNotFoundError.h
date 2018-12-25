@@ -8,5 +8,5 @@ class FileNotFoundError : public ArkanoidError {
 protected:
 
 public:
-
+	FileNotFoundError(const string &message) : ArkanoidError("File Not Found: " + message) {}
 };

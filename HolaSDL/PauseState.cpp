@@ -2,8 +2,8 @@
 
 PauseState::PauseState(SdlApplication* app) : GameState(app) {
 	cout << app;
-	MenuPlay = new MenuButton(app->getTexture(playt), 200, 425, 100, 100, MenuGame, app);
-	GamePlay = new MenuButton(app->getTexture(loadt), 500, 425, 100, 100, PlayGame, app);
+	MenuPlay = new MenuButton(app->getTexture(exitt), 200, 425, 100, 100, MenuGame, app);
+	GamePlay = new MenuButton(app->getTexture(playt), 500, 425, 100, 100, PlayGame, app);
 	gameObjects.push_back(MenuPlay);
 	gameObjects.push_back(GamePlay);
 };
@@ -29,6 +29,6 @@ void PauseState::MenuGame(SdlApplication* app) {
 	app->getStateMachine()->pushState(new MainMenuState(app));
 }
 void PauseState::PlayGame(SdlApplication* app) {
-	app->getStateMachine()->pushState(new PlayState(app));
+	app->getStateMachine()->popState();
 }
 

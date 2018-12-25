@@ -23,8 +23,10 @@ void MainMenuState::startGame(SdlApplication* app)
 
 void MainMenuState::loadGame(SdlApplication* app)
 {
-	cout << "Partida Cargada" << endl;
-	app->getStateMachine()->pushState(new PlayState(app));
+	string loadCode;
+	cout << "Introduzca la partida guardada: " << loadCode;
+	cin >> loadCode;
+	app->getStateMachine()->pushState(new PlayState(app, loadCode));
 }
 
 /*void MainMenuState::handleEvents(SDL_Event even) {

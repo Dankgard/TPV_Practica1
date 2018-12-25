@@ -193,8 +193,11 @@ void PlayState::death() {
 		lifes--;
 		ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
 	}
+	// game over
 	else
 	{
+		app->getStateMachine()->pushState(new EndState(app));
+		/*
 		cout << "GAME OVER" << endl;
 		ball->resetBall(ballpos, ballspeed.getX(), ballspeed.getY());
 		SDL_Delay(3000);
@@ -207,6 +210,7 @@ void PlayState::death() {
 		blocksmap->loadMap("..//maps//" + levels[currentLevel], app->getTexture(brickst));
 		arkanoidObjects.push_front(blocksmap);
 		lifes = 3;
+		*/
 	}
 	cout << "Lifes: " << lifes << endl;
 }
