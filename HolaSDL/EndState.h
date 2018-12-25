@@ -11,6 +11,7 @@ class EndState : public GameState {
 	protected:
 		MenuButton* MenuPlay;
 		MenuButton* GamePlay;
+		MenuButton* LoadPlay;
 	public:
 		EndState(SdlApplication* app);
 		~EndState();
@@ -21,4 +22,5 @@ class EndState : public GameState {
 
 		static void MenuGame(SdlApplication* app);
 		static void PlayGame(SdlApplication* app);
+		static void LoadGame(SdlApplication* app);
 };

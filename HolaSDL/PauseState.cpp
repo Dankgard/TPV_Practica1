@@ -26,7 +26,8 @@ void PauseState::render() {
 	texture->render(dstRect, SDL_FLIP_NONE);
 }
 void PauseState::MenuGame(SdlApplication* app) {
-	app->getStateMachine()->pushState(new MainMenuState(app));
+	app->getStateMachine()->popState();
+	app->getStateMachine()->popState();
 }
 void PauseState::PlayGame(SdlApplication* app) {
 	app->getStateMachine()->popState();
