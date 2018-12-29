@@ -12,6 +12,9 @@ Paddle::Paddle(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t) :
 
 void Paddle::update()
 {
+	if (pos.getX() >= 20 - speed && pos.getX() <= 780 - w - speed)
+		pos = Vector2D(pos.getX() + speed, pos.getY());	
+
 	if (powered && getTimeElapsed() >= originalTime)
 	{
 		originalPaddle();
@@ -32,19 +35,57 @@ void Paddle::handleEvent(SDL_Event event) {
 	if (event.type == SDL_KEYDOWN) {
 		switch (event.key.keysym.sym)
 		{
-		case SDLK_LEFT:			
-			mov(-speed.getX());
+		case SDLK_LEFT:
+			speed = -3;
 			break;
-		case SDLK_RIGHT:			
-			mov(speed.getX());			
+		case SDLK_RIGHT:
+			speed = 3;
 			break;
-		default:
+		}
+	}
+
+	if (event.type == SDL_KEYUP) {		
+		switch (event.key.keysym.sym)			
+		{
+		case SDLK_LEFT:
+			speed = 0;
+			break;
+		case SDLK_RIGHT:
+			speed = 0;
 			break;
 		}
 	}
 }
 bool Paddle::handleEvents(SDL_Event& event) {
-	return true;
+	bool handled = false;
+	if (event.type == SDL_KEYDOWN) {
+		switch (event.key.keysym.sym)
+		{
+		case SDLK_LEFT:
+			speed = -3;
+			handled = true;
+			break;
+		case SDLK_RIGHT:
+			speed = 3;
+			handled = true;
+			break;
+		}
+	}
+
+	if (event.type == SDL_KEYUP) {
+		switch (event.key.keysym.sym)
+		{
+		case SDLK_LEFT:
+			speed = 0;
+			handled = true;
+			break;
+		case SDLK_RIGHT:
+			speed = 0;
+			handled = true;
+			break;
+		}
+	}
+	return handled;
 }
 
 bool Paddle::collides(const SDL_Rect* rect, Vector2D& collVector)

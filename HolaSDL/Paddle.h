@@ -14,6 +14,7 @@ private:
 	uint originalTime = 5000;
 	uint powerupTicks = 0;
 	uint oldW = 100;
+	int speed = 0;
 public:
 	Paddle();
 	Paddle(Vector2D pos, uint w, uint h, Vector2D speed, Texture* t);

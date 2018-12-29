@@ -87,7 +87,7 @@ void PlayState::renderExample()
 
 bool PlayState::handleEvents(SDL_Event& event)
 {	
-	if (event.type == SDL_KEYDOWN) {
+	if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_s)) {
 		switch (event.key.keysym.sym)
 		{
 		case SDLK_ESCAPE:
@@ -96,12 +96,12 @@ bool PlayState::handleEvents(SDL_Event& event)
 		case SDLK_s:
 			saveGame();
 			break;
-		}
-		paddle->handleEvent(event);
+		}		
 	}
 	else
 	{
-		GameState::handleEvents(event);
+		//GameState::handleEvents(event);
+		paddle->handleEvent(event);
 	}
 	return true;
 }
