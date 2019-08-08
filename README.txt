@@ -9,3 +9,5 @@ Abre el archivo ProyectosSDL.props y modifica la línea correspondiente a Library
 Si quieres añadir una nueva libreria, copia su directorio en la solución y los bin de la libreria en el directorio bin de la solución.
 Y añade los nuevos elementos al archivo ProyectosSDL.props en las lineas: IncludePath, LibraryPath y AdditionalDependencies.
 También puedes crear otras páginas de propiedades.
+
+.
